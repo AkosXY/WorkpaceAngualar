@@ -1,43 +1,73 @@
 <div class="form-container">
-    <mat-card>
-        <mat-card-title>Welcome to Work Pace</mat-card-title>
-        <br>
+    <mat-card class="custom-scrollbar">
+        <mat-card-title class="title">Welcome to Work-Pace!</mat-card-title>
         <mat-tab-group>
-            <mat-tab label="sign in">
-                <mat-card-content>
-                    <form class="form" [formGroup]="loginForm" >
-                        <mat-form-field >
+            <mat-tab label="login">
+                <mat-card-content >
+                    <form class="form" [formGroup]="loginForm">
+                        <mat-form-field>
                             <mat-label>email</mat-label>
                             <input matInput placeholder="email" formControlName="emailForm" type="text">
                             <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="emailForm?.errors?.['email']">
+                                enter valid email address
+                            </mat-error>
+                            <mat-error *ngIf="emailForm?.errors?.['required']">
+                                email required
+                            </mat-error>
                         </mat-form-field>
-                        <mat-form-field >
+                        <mat-form-field>
                             <mat-label>password</mat-label>
                             <input matInput placeholder="password" formControlName="passwordForm" [type]="hidePassword ? 'password' : 'text'">
                             <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="passwordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm?.errors?.['minlength']">
+                                email must be at least 5 characters long
+                            </mat-error>
                         </mat-form-field>
-                        <button mat-raised-button color="primary" type="submit" (click)="login()">login</button>
+                        <button mat-raised-button color="primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">login</button>
                     </form>
                 </mat-card-content>
             </mat-tab>
-            <mat-tab label="sing up">
+            <mat-tab label="sign up">
                 <mat-card-content>
                     <form class="form" [formGroup]="signupForm" >
-                        <mat-form-field >
+                        <mat-form-field>
                             <mat-label>email</mat-label>
                             <input matInput placeholder="email" formControlName="newEmailForm" type="text">
                             <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="newEmailForm?.errors?.['email']">
+                                enter valid email address
+                            </mat-error>
+                            <mat-error *ngIf="newEmailForm?.errors?.['required']">
+                                email required
+                            </mat-error>
                         </mat-form-field>
-                        <mat-form-field >
+                        <mat-form-field>
                             <mat-label>password</mat-label>
                             <input matInput placeholder="password" formControlName="newPasswordForm" [type]="hidePassword ? 'password' : 'text'">
                             <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="newPasswordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="newPasswordForm?.errors?.['minlength']">
+                                email must be at least 5 characters long
+                            </mat-error>
                         </mat-form-field>
-                        <mat-form-field >
+                        <mat-form-field>
                             <mat-label>comfirm password</mat-label>
                             <input matInput placeholder="comfirm password" formControlName="confirmPasswordForm" [type]="hidePassword ? 'password' : 'text'">
+                            <mat-error *ngIf="confirmPasswordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="confirmPasswordForm?.errors?.['passwordDontMatch']">
+                                passwords do not match
+                            </mat-error>
+
                         </mat-form-field>
-                        <button mat-raised-button color="primary" type="submit">sign up</button>    
+                        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">sign up</button>    
                     </form>
                 </mat-card-content>
             </mat-tab>
@@ -46,5 +76,5 @@
     </mat-card>
 </div>
 <p>login works!</p>
-<p>email: {{emailForm.value}}</p>
+<p>email: {{emailForm}}</p>
 
