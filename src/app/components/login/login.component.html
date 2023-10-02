@@ -27,7 +27,7 @@
                                 email must be at least 5 characters long
                             </mat-error>
                         </mat-form-field>
-                        <button mat-raised-button color="primary" type="submit" (click)="login()" [disabled]="!loginForm.valid">login</button>
+                        <button mat-raised-button color="primary" type="submit" (click)="login()">login</button>
                     </form>
                 </mat-card-content>
             </mat-tab>
@@ -67,14 +67,10 @@
                             </mat-error>
 
                         </mat-form-field>
-                        <button mat-raised-button color="primary" type="submit" [disabled]="!signupForm.valid">sign up</button>    
+                        <button mat-raised-button color="primary" type="submit" (click)="signup()">sign up</button>    
                     </form>
                 </mat-card-content>
             </mat-tab>
         </mat-tab-group>
-
     </mat-card>
 </div>
-<p>login works!</p>
-<p>email: {{emailForm}}</p>
-
