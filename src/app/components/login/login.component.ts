@@ -71,9 +71,20 @@ export class LoginComponent {
   
 
   login(){
-    this.router.navigateByUrl('/home');
-    this.authService.login()
+    if(this.loginForm.valid){ //TODO authentication
+      this.router.navigateByUrl('/home');
+      this.authService.login()
+    }
   }
+
+  
+  signup(){
+    if(this.signupForm.valid){ //TODO authentication
+      this.router.navigateByUrl('/home');
+      this.authService.login()
+    }
+  }
+
 
 
 }
