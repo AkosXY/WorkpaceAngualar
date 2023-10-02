@@ -1,0 +1,21 @@
+
+
+mat-card {
+    min-width: fit-content;
+    max-width: 500px;
+    padding: 20px;
+    margin: 5% auto;
+    border-radius: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+} 
+
+mat-card-content button{
+    margin: auto;
+    width: 200px;
+}
+
+

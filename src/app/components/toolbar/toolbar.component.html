@@ -1,0 +1,16 @@
+
+<mat-toolbar color="primary">
+    WorkPace - Admin
+    <ng-container *ngIf="!getAuthenticated(); else logoutBlock;">
+        <button mat-button routerLink="login" (click)="login()">
+            <mat-icon>login</mat-icon>
+            login
+        </button>
+    </ng-container>
+    <ng-template #logoutBlock>
+        <button mat-button routerLink="home" (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            logout
+        </button>
+    </ng-template>
+</mat-toolbar>
