@@ -22,7 +22,7 @@ import { HomeComponent } from './components/home/home.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatToolbarModule, //TODO: research shared module sollution
+    MatToolbarModule, //TODO: shared module sollution?
     MatIconModule,
     MatButtonModule,
     BrowserAnimationsModule

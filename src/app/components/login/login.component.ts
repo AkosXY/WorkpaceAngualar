@@ -2,15 +2,6 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { Router } from '@angular/router';
-/* 
-export function passwordMatchValidator(): ValidatorFn {
-  return (control): {[key: string]: any} | null => {
-    const newPass = control.get('newPasswordForm')?.value;
-    const newPassConfirm = control.get('confirmPasswordForm')?.value;
-    return newPass === newPassConfirm ? null : { passwordDontMatch: true };
-  };
-}
- */
 
 export function passwordMatchValidator(confirmControl: AbstractControl): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -24,7 +15,6 @@ export function passwordMatchValidator(confirmControl: AbstractControl): Validat
     return null;
   };
 }
-
 
 @Component({
   selector: 'app-login',
@@ -41,7 +31,6 @@ export class LoginComponent {
     emailForm: new FormControl('', [Validators.email, Validators.required]),
     passwordForm:  new FormControl('', [Validators.required, Validators.minLength(5)])
   })
-
 
   newPasswordForm = new FormControl('', [Validators.required, Validators.minLength(5)]);
   confirmPasswordForm = new FormControl('', [Validators.required, Validators.minLength(5), passwordMatchValidator(this.newPasswordForm)]);
@@ -69,14 +58,12 @@ export class LoginComponent {
     return this.newPasswordForm?.value === this.confirmPasswordForm?.value;
   }
   
-
   login(){
     if(this.loginForm.valid){ //TODO authentication
       this.router.navigateByUrl('/home');
       this.authService.login()
     }
   }
-
   
   signup(){
     if(this.signupForm.valid){ //TODO authentication
@@ -84,7 +71,6 @@ export class LoginComponent {
       this.authService.login()
     }
   }
-
 
 
 }
