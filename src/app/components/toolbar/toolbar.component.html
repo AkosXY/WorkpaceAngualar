@@ -1,17 +1,15 @@
 <mat-toolbar color="primary">
     <div class="menu-title">
-        <button mat-icon-button (click)="drawer.toggle()">
+        <button mat-icon-button *ngIf="getAuthenticated()" (click)="drawer.toggle()">
             <mat-icon>menu</mat-icon>
         </button>
         <p>WorkPace - Admin</p>
     </div>
     <ng-container *ngIf="!getAuthenticated(); else logoutBlock;">
-
-        <button mat-button routerLink="login" (click)="login()">
+        <button mat-button routerLink="login">
             <mat-icon>login</mat-icon>
             login
         </button>
-
     </ng-container>
     <ng-template #logoutBlock>
         <div>
@@ -28,7 +26,7 @@
 </mat-toolbar>
 
 <mat-drawer-container>
-    <mat-drawer #drawer opened="true" mode="side">
+    <mat-drawer #drawer [opened]="getAuthenticated()" mode="side">
         <mat-nav-list class="nav-items-container">
             <div>
                 <mat-list-item routerLink="home">
