@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MatListModule } from '@angular/material/list';
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
+    HttpClientModule,
     BrowserAnimationsModule
   ],
   providers: [],

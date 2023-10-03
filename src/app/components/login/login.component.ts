@@ -28,7 +28,7 @@ export class LoginComponent {
   constructor(private authService: AuthenticationService, private router: Router) { }
 
   loginForm = new FormGroup({
-    emailForm: new FormControl('', [Validators.email, Validators.required]),
+    usernameForm: new FormControl('', [Validators.required]),
     passwordForm: new FormControl('', [Validators.required, Validators.minLength(5)])
   })
 
@@ -41,9 +41,11 @@ export class LoginComponent {
     confirmPasswordForm: this.confirmPasswordForm
   });
 
-  get emailForm() {
-    return this.loginForm.get('emailForm');
+
+  get usernameForm() {
+    return this.loginForm.get('usernameForm');
   }
+
 
   get passwordForm() {
     return this.loginForm.get('passwordForm');
@@ -59,15 +61,16 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) { //TODO authentication
-      this.router.navigateByUrl('/home');
-      this.authService.login()
+      let username:string = this.usernameForm?.value ? this.usernameForm?.value.toString() : "";
+      let password:string = this.passwordForm?.value ? this.passwordForm?.value.toString() : ""
+      this.authService.login(username, password)
     }
   }
 
   signup() {
     if (this.signupForm.valid) { //TODO authentication
       this.router.navigateByUrl('/home');
-      this.authService.login()
+      //this.authService.login()
     }
   }
 
