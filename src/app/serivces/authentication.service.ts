@@ -9,15 +9,15 @@ export class AuthenticationService {
 
   constructor() { }
 
-  getAuthenticated(){
+  getAuthenticated() {
     return this.isAuthenticated;
   }
 
-  login(){
+  login() {
     this.isAuthenticated = true;
   }
 
-  logout(){
+  logout() {
     this.isAuthenticated = false;
   }
 

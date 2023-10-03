@@ -1,15 +1,66 @@
 <mat-toolbar color="primary">
-    WorkPace - Admin
+    <div class="menu-title">
+        <button mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <p>WorkPace - Admin</p>
+    </div>
     <ng-container *ngIf="!getAuthenticated(); else logoutBlock;">
+
         <button mat-button routerLink="login" (click)="login()">
             <mat-icon>login</mat-icon>
             login
         </button>
+
     </ng-container>
     <ng-template #logoutBlock>
-        <button mat-button routerLink="home" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            logout
-        </button>
+        <div>
+            <button mat-button>
+                <mat-icon>account_circle</mat-icon>
+                profile
+            </button>
+            <button mat-button routerLink="login" (click)="logout()">
+                <mat-icon>logout</mat-icon>
+                logout
+            </button>
+        </div>
     </ng-template>
 </mat-toolbar>
+
+<mat-drawer-container>
+    <mat-drawer #drawer opened="true" mode="side">
+        <mat-nav-list class="nav-items-container">
+            <div>
+                <mat-list-item routerLink="home">
+                    <button mat-button><mat-icon>home</mat-icon>home</button> <!-- about app -->
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button><mat-icon>assignment</mat-icon>all tasks</button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button><mat-icon>access_time</mat-icon>waiting for approval</button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button><mat-icon>supervised_user_circle</mat-icon>my workers</button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button><mat-icon>import_export</mat-icon>import tasks</button>
+                </mat-list-item>
+            </div>
+
+            <div>
+                <mat-list-item>
+                    <button mat-button><mat-icon>analytics</mat-icon>analytics</button>
+                </mat-list-item>
+                <mat-list-item>
+                    <button mat-button><mat-icon>assignment_turned_in</mat-icon>send feedback</button>
+                </mat-list-item>
+            </div>
+
+        </mat-nav-list>
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

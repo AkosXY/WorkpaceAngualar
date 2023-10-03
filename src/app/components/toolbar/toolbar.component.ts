@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
 
 @Component({
@@ -17,7 +16,7 @@ export class ToolbarComponent {
   }
 
   login(){
-    //this.authService.login()
+    this.authService.login()
   }
 
 

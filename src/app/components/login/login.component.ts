@@ -25,11 +25,11 @@ export class LoginComponent {
 
   hidePassword = true;
 
-  constructor(private authService :AuthenticationService, private router :Router) { }
+  constructor(private authService: AuthenticationService, private router: Router) { }
 
   loginForm = new FormGroup({
     emailForm: new FormControl('', [Validators.email, Validators.required]),
-    passwordForm:  new FormControl('', [Validators.required, Validators.minLength(5)])
+    passwordForm: new FormControl('', [Validators.required, Validators.minLength(5)])
   })
 
   newPasswordForm = new FormControl('', [Validators.required, Validators.minLength(5)]);
@@ -49,7 +49,6 @@ export class LoginComponent {
     return this.loginForm.get('passwordForm');
   }
 
-
   get newEmailForm() {
     return this.signupForm.get('newEmailForm');
   }
@@ -57,20 +56,19 @@ export class LoginComponent {
   passwordsMatch(): boolean {
     return this.newPasswordForm?.value === this.confirmPasswordForm?.value;
   }
-  
-  login(){
-    if(this.loginForm.valid){ //TODO authentication
-      this.router.navigateByUrl('/home');
-      this.authService.login()
-    }
-  }
-  
-  signup(){
-    if(this.signupForm.valid){ //TODO authentication
+
+  login() {
+    if (this.loginForm.valid) { //TODO authentication
       this.router.navigateByUrl('/home');
       this.authService.login()
     }
   }
 
+  signup() {
+    if (this.signupForm.valid) { //TODO authentication
+      this.router.navigateByUrl('/home');
+      this.authService.login()
+    }
+  }
 
 }

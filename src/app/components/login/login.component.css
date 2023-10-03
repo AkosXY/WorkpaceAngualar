@@ -1,5 +1,3 @@
-
-
 mat-card {
     min-width: fit-content;
     max-width: 500px;
@@ -25,7 +23,6 @@ mat-card-content button{
     margin: auto;
     width: 200px;
 }
-
 
 .custom-scrollbar {
     scrollbar-width: none !important; /* Hide the scrollbar in Firefox */

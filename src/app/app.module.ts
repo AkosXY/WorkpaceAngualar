@@ -6,11 +6,12 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { HomeComponent } from './components/home/home.component';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 
 @NgModule({
@@ -24,7 +25,9 @@ import { HomeComponent } from './components/home/home.component';
     AppRoutingModule,
     MatToolbarModule, //TODO: shared module sollution?
     MatIconModule,
+    MatSidenavModule,
     MatButtonModule,
+    MatListModule,
     BrowserAnimationsModule
   ],
   providers: [],
