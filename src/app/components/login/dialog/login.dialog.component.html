@@ -1,0 +1,21 @@
+
+<div *ngIf="permission">
+  <h1 mat-dialog-title>Access Denied</h1>
+  <div mat-dialog-content >You do not have the necessary permissions to access this page. <br>
+    This area is restricted to users with administrative privileges.</div>
+    <div class="dialog-container" >
+      <img src="assets/qr.jpg" alt="qr code" width="200" height="200">
+      <p class="download-link">download user app using qr code</p>
+    </div>
+</div>
+
+<div *ngIf="!permission">
+  <h1 mat-dialog-title>Wrong Credentials</h1>
+  <div  mat-dialog-content>The username or password you have entered is incorrect.  <br>
+    Please check your login information and try again.</div>
+</div>
+
+
+<div class="center" mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</div>

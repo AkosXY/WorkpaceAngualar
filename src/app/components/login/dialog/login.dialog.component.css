@@ -1,0 +1,16 @@
+.center{
+    display: flex;
+    justify-content: center;
+}
+
+.dialog-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.download-link{
+    color: #277dfb;
+    font-size: small;
+}
+

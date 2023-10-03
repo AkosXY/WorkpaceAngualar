@@ -13,13 +13,15 @@ import { HomeComponent } from './components/home/home.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { HttpClientModule } from '@angular/common/http';
+import {MatDialogModule} from '@angular/material/dialog'
+import { CommonModule } from '@angular/common';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ToolbarComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     MatListModule,
     HttpClientModule,
+    MatDialogModule,
+    CommonModule,
     BrowserAnimationsModule
   ],
   providers: [],

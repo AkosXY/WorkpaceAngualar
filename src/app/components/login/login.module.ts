@@ -10,6 +10,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card'
+import { LoginDialogComponent } from './dialog/login.dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 const routes: Routes = [
   {
@@ -21,7 +24,8 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LoginDialogComponent
   ],
   imports: [
     CommonModule,
@@ -33,6 +37,9 @@ const routes: Routes = [
     MatInputModule,
     MatTabsModule,
     MatCardModule,
+    MatDialogModule,
+
+
     RouterModule.forChild(routes),
 
   ],
