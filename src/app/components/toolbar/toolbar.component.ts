@@ -15,11 +15,6 @@ export class ToolbarComponent {
     return this.authService.getAuthenticated();
   }
 
-  login(){
-    this.authService.login()
-  }
-
-
   logout(){
     this.authService.logout()
   }
