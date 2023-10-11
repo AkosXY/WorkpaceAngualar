@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../components/login/dialog/login.dialog.component';
 import {CookieService} from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { User } from '../interface/user.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -62,13 +63,13 @@ export class AuthenticationService {
   private handleLoginSuccess(response: any): void {
     if (response && response.admin === true) {
       console.log('Admin login successful:', response);
-      this.isAdmin = true;
-      this.cookieService.set('authenticated', "true");
+      this.storeDataInCookies(response);
+
     } else {
       console.error('Login failed: Not an admin user.');
     }
   }
-
+  
   private handleRequestComplete(): void {
     console.log('Request completed.');
     if (this.isAdmin) {
@@ -77,6 +78,17 @@ export class AuthenticationService {
     } else {
       this.openDialog(true)
     }
+  }
+
+  storeDataInCookies(response: any){ 
+    this.cookieService.set('userData', JSON.stringify(response));
+    this.isAdmin = true;
+    this.cookieService.set('authenticated', "true");
+
+  }
+  
+  getUserData(): User{
+    return JSON.parse(this.cookieService.get('userData'));
   }
 
 
