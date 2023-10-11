@@ -5,16 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { HomeComponent } from './components/home/home.component';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
-import { HttpClientModule } from '@angular/common/http';
-import {MatDialogModule} from '@angular/material/dialog'
-import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import {CookieService} from 'ngx-cookie-service';
+
+import { HomeComponent } from './components/home/home.component';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { CommonModule } from '@angular/common';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatToolbarModule, //TODO: shared module sollution?
     MatIconModule,
@@ -36,7 +39,7 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

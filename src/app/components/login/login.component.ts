@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
+import { AbstractControl, ValidatorFn, ValidationErrors, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 
 export function passwordMatchValidator(confirmControl: AbstractControl): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

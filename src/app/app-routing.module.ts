@@ -5,7 +5,13 @@ import { HomeComponent } from './components/home/home.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'login', loadChildren: () => import("./components/login/login.module").then(m => m.LoginModule) }
+  { path: 'login', loadChildren: () => import("./components/login/login.module").then(m => m.LoginModule) },
+  { path: 'all-tasks', loadChildren: () => import("./components/task-grid/task-grid.module").then(m => m.TaskGridModule) },
+  { path: 'pending-tasks', loadChildren: () => import("./components/task-grid/task-grid.module").then(m => m.TaskGridModule) },
+  { path: 'my-workers', loadChildren: () => import("./components/workers/workers.module").then(m => m.WorkersModule) },
+  { path: 'import', loadChildren: () => import("./components/data-import/data-import.module").then(m => m.DataImportModule) },
+  { path: 'analytics', loadChildren: () => import("./components/analytics/analytics.module").then(m => m.AnalyticsModule) }
+
 ];
 
 @NgModule({

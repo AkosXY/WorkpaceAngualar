@@ -1,8 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { LoginDialogComponent } from '../components/login/dialog/login.dialog.component';
+import {CookieService} from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +15,10 @@ export class AuthenticationService {
   isAuthenticated = false;
   isAdmin = false;
 
-  constructor(private http: HttpClient, private router: Router, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private router: Router, public dialog: MatDialog, private cookieService: CookieService) { }
 
   getAuthenticated() {
+    this.isAuthenticated = this.cookieService.get('authenticated') === "true";
     return this.isAuthenticated;
   }
 
@@ -33,6 +35,8 @@ export class AuthenticationService {
 
   logout() {
     this.isAuthenticated = false;
+    this.cookieService.delete("authorizationHeader");
+    this.cookieService.delete('authenticated');
   }
 
   openDialog(permissionError: boolean) {
@@ -43,6 +47,7 @@ export class AuthenticationService {
 
   private createAuthorizationHeader(username: string, password: string): HttpHeaders {
     const headerValue = `Basic ${btoa(`${username}:${password}`)}`;
+    this.cookieService.set('authorizationHeader', headerValue);
     return new HttpHeaders({
       'Authorization': headerValue
     });
@@ -58,6 +63,7 @@ export class AuthenticationService {
     if (response && response.admin === true) {
       console.log('Admin login successful:', response);
       this.isAdmin = true;
+      this.cookieService.set('authenticated', "true");
     } else {
       console.error('Login failed: Not an admin user.');
     }
