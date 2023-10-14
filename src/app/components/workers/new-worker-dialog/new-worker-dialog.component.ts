@@ -15,9 +15,9 @@ import { WorkersComponent } from "../workers.component";
     constructor( private auth: AuthenticationService, private workerService: WorkerService, private dialogRef: MatDialogRef<WorkersComponent>) {}
 
       submitForm = new FormGroup({
-        nameForm: new FormControl('', [Validators.required]),
-        usernameForm: new FormControl('', [Validators.required]),
-        phoneForm: new FormControl('', [Validators.required]),
+        nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
+        usernameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
+        phoneForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
         emailForm: new FormControl('', [Validators.required, Validators.email]),
         enabledForm: new FormControl(false),
         adminForm: new FormControl(false)
@@ -36,9 +36,10 @@ import { WorkersComponent } from "../workers.component";
             password:"new",
             supervisorId: this.auth.getUserData().id
           }
+
           this.workerService.postNewWorker(worker).subscribe((success) => {
             if(success){
-              this.dialogRef.close()
+              this.dialogRef.close('refresh')
             }
           });
         } 
@@ -69,10 +70,6 @@ import { WorkersComponent } from "../workers.component";
       get adminForm() {
         return this.submitForm.get('adminForm');
       }
-          
-/*       get passwordForm() {
-        return this.submitForm.get('passwordForm');
-      } */
-  
+
     
   }

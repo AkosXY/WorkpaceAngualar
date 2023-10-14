@@ -8,5 +8,4 @@ export interface Worker {
     name: string,
     admin: boolean,
     enabled: boolean
-
   }

@@ -5,7 +5,7 @@ import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.component';
 
 @Component({
@@ -27,7 +27,13 @@ export class WorkersComponent {
       this.dataSource = new MatTableDataSource<Worker>(this.workerList)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(resp)
+    });
+  }
+
+  fetchWorkerList() {
+    this.workerService.getMyWorkers().subscribe((resp) => {
+      this.workerList = resp;
+      this.dataSource.data = this.workerList;
     });
   }
 
@@ -46,7 +52,12 @@ export class WorkersComponent {
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "fit-content";
-    this.dialog.open(NewWorkerDialogComponent, dialogConfig)
+    const dialogRef = this.dialog.open(NewWorkerDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.fetchWorkerList(); 
+      }
+    });
   };
 
 

@@ -16,6 +16,9 @@
                 <mat-error *ngIf="nameForm?.errors?.['required']">
                     name required
                 </mat-error>
+                <mat-error *ngIf="nameForm?.errors?.['minlength']">
+                    name must be at least 5 characters long
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>username</mat-label>
@@ -23,6 +26,9 @@
                 <mat-icon matSuffix>person_outline</mat-icon>
                 <mat-error *ngIf="usernameForm?.errors?.['required']">
                     username required
+                </mat-error>
+                <mat-error *ngIf="usernameForm?.errors?.['minlength']">
+                    username must be at least 5 characters long
                 </mat-error>
             </mat-form-field>
             <ng-container>
@@ -48,6 +54,9 @@
                 <mat-icon matSuffix>phone</mat-icon>
                 <mat-error *ngIf="phoneForm?.errors?.['required']">
                     phone number required
+                </mat-error>
+                <mat-error *ngIf="phoneForm?.errors?.['minlength']">
+                    phone number is too short
                 </mat-error>
             </mat-form-field>
    
