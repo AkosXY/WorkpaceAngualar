@@ -17,6 +17,10 @@ mat-list-item button {
     pointer-events: none; 
 }
 
+mat-drawer-content{
+    padding: 25px;
+}
+
 .nav-items-container {
     display: flex;
     flex-direction: column;

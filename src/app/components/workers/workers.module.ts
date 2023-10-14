@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 
 import { Routes, RouterModule } from '@angular/router';
 import { WorkersComponent } from './workers.component';
-
+import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
+import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.component';
 
 
 const routes: Routes = [
@@ -16,11 +17,12 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    WorkersComponent
+    WorkersComponent,
+    NewWorkerDialogComponent
   ],
   imports: [
     CommonModule,
-
+    SharedMaterialModule,
     RouterModule.forChild(routes),
 
   ],

@@ -1,0 +1,31 @@
+/* Disable ripple effect for the "action" column */
+.disable-ripple {
+    background-color: transparent;
+}
+
+.table-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 450px;
+}
+
+.footer{
+    height: 50px; bottom: 0;
+  }
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+/* mat-paginator{
+    position: fixed;
+    bottom: 5%;
+    width: 100%;
+    right: 40%;
+} */
+
+

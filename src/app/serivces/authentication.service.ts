@@ -11,7 +11,7 @@ import { User } from '../interface/user.interface';
 })
 export class AuthenticationService {
 
-  private endpoint = "https://workpace-api.azurewebsites.net/login";
+  private static loginEndpoint = "https://workpace-api.azurewebsites.net/login";
 
   isAuthenticated = false;
   isAdmin = false;
@@ -26,7 +26,7 @@ export class AuthenticationService {
   login(username:string, password:string) {
     const headers = this.createAuthorizationHeader(username, password);
 
-    this.http.get(this.endpoint, { headers: headers }).subscribe({
+    this.http.get(AuthenticationService.loginEndpoint, { headers: headers }).subscribe({
       next: (response) => this.handleLoginSuccess(response),
       error: (error) => this.handleLoginFailed(error),
       complete: () => this.handleRequestComplete()
@@ -52,6 +52,15 @@ export class AuthenticationService {
     return new HttpHeaders({
       'Authorization': headerValue
     });
+  }
+
+  getAuthHeader(){
+    const headerValue = this.cookieService.get("authorizationHeader")
+    if (headerValue) {
+      return new HttpHeaders({
+        'Authorization': headerValue
+      });
+    } return new HttpHeaders();
   }
 
 
