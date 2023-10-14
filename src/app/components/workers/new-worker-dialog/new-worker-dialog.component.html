@@ -38,6 +38,9 @@
                 <mat-error *ngIf="emailForm?.errors?.['required']">
                     email required
                 </mat-error>
+                <mat-error *ngIf="emailForm?.errors?.['email']">
+                    enter valid email address
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>phone</mat-label>
@@ -52,21 +55,9 @@
                 <mat-checkbox formControlName="enabledForm" color="primary">Grant admin privileges</mat-checkbox> 
             </ng-container>
 
-    <!--         <mat-form-field>
-                <mat-label>password</mat-label>
-                <input matInput placeholder="enter password" formControlName="passwordForm" >
-                <mat-icon matSuffix>lock</mat-icon>
-                <mat-error *ngIf="passwordForm?.errors?.['required']">
-                    password required
-                </mat-error>
-                <mat-error *ngIf="passwordForm?.errors?.['minlength']">
-                    email must be at least 5 characters long
-                </mat-error>
-            </mat-form-field> -->
         </div>
     </form>
     <div class="button-container">
-
-        <button mat-raised-button color="primary" type="submit">add worker</button>
+        <button mat-raised-button color="primary" type="submit" (click)="submit()">Save</button>
     </div>
 </div>
