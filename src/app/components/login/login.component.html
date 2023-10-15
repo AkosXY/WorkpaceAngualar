@@ -21,7 +21,7 @@
                                 password required
                             </mat-error>
                             <mat-error *ngIf="passwordForm?.errors?.['minlength']">
-                                email must be at least 5 characters long
+                                password must be at least 5 characters long
                             </mat-error>
                         </mat-form-field>
                         <button mat-raised-button color="primary" type="submit" (click)="login()">login</button>

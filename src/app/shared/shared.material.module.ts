@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatCheckboxModule,
     MatListModule,
     MatDialogModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSlideToggleModule
 
 
   ],
@@ -59,7 +61,8 @@ import { MatRippleModule } from '@angular/material/core';
     MatCheckboxModule,
     MatListModule,
     MatDialogModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSlideToggleModule
 ]
 
 })

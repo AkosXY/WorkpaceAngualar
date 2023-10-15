@@ -1,7 +1,4 @@
-/* Disable ripple effect for the "action" column */
-.disable-ripple {
-    background-color: transparent;
-}
+
 
 .table-container {
     display: flex;
@@ -21,11 +18,11 @@
     justify-content: space-between;
 }
 
-/* mat-paginator{
-    position: fixed;
-    bottom: 5%;
-    width: 100%;
-    right: 40%;
-} */
+.disabled-row{
+   /*  color: lightcoral; */
+   color: rgb(150, 150, 150);
+}
 
-
+.inactive-filter{
+    padding-left: 30px;
+}

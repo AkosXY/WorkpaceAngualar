@@ -4,54 +4,56 @@
 
 <div>
     <div class="header-container">
-        <mat-form-field>
-            <mat-label>Search</mat-label>
-            <mat-icon matPrefix>search</mat-icon>
-            <input matInput (keyup)="applyFilter($event)" placeholder="filter column" #input> 
-        </mat-form-field>
+        <div>
+            <mat-form-field>
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" placeholder="filter column" #input> 
+            </mat-form-field>
+            <mat-checkbox [(ngModel)]="hideInactive" (change)="onCheckboxChange()" class="inactive-filter" color="primary">Hide inactive workers</mat-checkbox>
+        </div>
         <button mat-fab extended color="none" (click)="onCreate()">
             <mat-icon>add</mat-icon>
             Add worker
-          </button>
+        </button>
     </div>
     <div class="table-container">
         <mat-table  [dataSource]="dataSource" matSort>
-        
             <!-- Name Column -->
             <ng-container matColumnDef="name">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> {{element.name}} </mat-cell>
             </ng-container>
             <!-- username Column -->
             <ng-container matColumnDef="username">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.username}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> {{element.username}} </mat-cell>
             </ng-container>
             <!-- email Column -->
             <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> {{element.email}} </mat-cell>
             </ng-container>
             <!-- phone Column -->
             <ng-container matColumnDef="phone">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
-                <mat-cell *matCellDef="let element" > {{element.phone}} </mat-cell>
+                <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> {{element.phone}} </mat-cell>
             </ng-container>   
     
-            <ng-container matColumnDef="action">
-                <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+            <ng-container matColumnDef="enabled">
+                <mat-header-cell *matHeaderCellDef> Enabled </mat-header-cell>
                 <mat-cell *matCellDef="let element" class="disable-ripple">  
-                    <button mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-icon-button>
+                    <mat-slide-toggle dir="rtl" [checked]="element.enabled" color="primary" (toggleChange)="toggle(element)"></mat-slide-toggle>
+                    <mat-icon style="transform: rotate(90deg)">horizontal_rule</mat-icon>
+                    <button mat-icon-button (click)="deleteWorker(element)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </mat-cell>
-            </ng-container>   
-    
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </ng-container>  
+            <ng-container >
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </ng-container>
         </mat-table>
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" class="footer"
     
@@ -59,11 +61,3 @@
         </mat-paginator>
     </div>
 </div>
-
-<!-- <mat-card>
-    <mat-card-header></mat-card-header>
-    <mat-card-content>    
-
-    </mat-card-content>
-
-</mat-card> -->

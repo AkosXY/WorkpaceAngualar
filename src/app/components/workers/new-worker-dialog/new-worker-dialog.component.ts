@@ -6,7 +6,7 @@ import { WorkerService } from "src/app/serivces/worker.service";
 import { WorkersComponent } from "../workers.component";
 
 @Component({
-    selector: 'login-dialog',
+    selector: 'new-worker-dialog',
     templateUrl: 'new-worker-dialog.component.html',
     styleUrls: ['./new-worker-dialog.component.css'],
 
@@ -23,53 +23,51 @@ import { WorkersComponent } from "../workers.component";
         adminForm: new FormControl(false)
    })
 
-      submit(){
-        if(this.submitForm.valid){
-          console.log("submited");
-          const worker = {
-            name: this.nameForm?.value,
-            username: this.usernameForm?.value, 
-            phone: this.phoneForm?.value,
-            email: this.emailForm?.value,
-            enabled: this.enabledForm?.value,
-            admin: this.adminForm?.value,
-            password:"new",
-            supervisorId: this.auth.getUserData().id
-          }
-
-          this.workerService.postNewWorker(worker).subscribe((success) => {
-            if(success){
-              this.dialogRef.close('refresh')
-            }
-          });
-        } 
+  submit(){
+    if(this.submitForm.valid){
+      console.log("submited");
+      const worker = {
+        name: this.nameForm?.value,
+        username: this.usernameForm?.value, 
+        phone: this.phoneForm?.value,
+        email: this.emailForm?.value,
+        enabled: this.enabledForm?.value,
+        admin: this.adminForm?.value,
+        password: this.usernameForm?.value,
+        supervisorId: this.auth.getUserData().id
       }
 
-      get nameForm() {
-        return this.submitForm.get('nameForm');
-      }
-    
+      this.workerService.postNewWorker(worker).subscribe((success) => {
+        if(success){
+          this.dialogRef.close('refresh')
+        }
+      });
+    } 
+  }
 
-      get usernameForm() {
-        return this.submitForm.get('usernameForm');
-      }
-    
-      get phoneForm() {
-        return this.submitForm.get('phoneForm');
-      }
-    
-    
-      get emailForm() {
-        return this.submitForm.get('emailForm');
-      }
+  get nameForm() {
+    return this.submitForm.get('nameForm');
+  }
 
-      get enabledForm() {
-        return this.submitForm.get('enabledForm');
-      }
+  get usernameForm() {
+    return this.submitForm.get('usernameForm');
+  }
 
-      get adminForm() {
-        return this.submitForm.get('adminForm');
-      }
+  get phoneForm() {
+    return this.submitForm.get('phoneForm');
+  }
+
+  get emailForm() {
+    return this.submitForm.get('emailForm');
+  }
+
+  get enabledForm() {
+    return this.submitForm.get('enabledForm');
+  }
+
+  get adminForm() {
+    return this.submitForm.get('adminForm');
+  }
 
     
   }

@@ -5,8 +5,10 @@ import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.component';
+import { DeleteWorkerDialogComponent } from './delete-worker-dialog/delete-worker-dialog.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-workers',
@@ -16,15 +18,22 @@ import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.
 export class WorkersComponent {
 
   workerList!: Worker[];
-  dataSource:any
-  displayedColumns = ["name","username","email","phone","action"]
+  dataSource: any
+  displayedColumns = ["name", "username", "email", "phone", "enabled"]
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private workerService: WorkerService, private auth: AuthenticationService, private dialog: MatDialog) {
-    this.workerService.getMyWorkers().subscribe(resp => {
-      this.workerList = resp
-      this.dataSource = new MatTableDataSource<Worker>(this.workerList)
+  hideInactive = false
+
+  constructor(private workerService: WorkerService, private auth: AuthenticationService, private dialog: MatDialog, private cookieService: CookieService) {
+    this.initHideInactive();
+    this.initTable();
+  }
+
+  initTable(){
+    this.workerService.getMyWorkers().subscribe((resp) => {
+      this.workerList = this.hideInactive ? this.filterActiveRows(resp) : resp;
+      this.dataSource = new MatTableDataSource<Worker>(this.workerList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     });
@@ -32,22 +41,31 @@ export class WorkersComponent {
 
   fetchWorkerList() {
     this.workerService.getMyWorkers().subscribe((resp) => {
-      this.workerList = resp;
+      this.workerList = this.hideInactive ? this.filterActiveRows(resp) : resp;
       this.dataSource.data = this.workerList;
     });
   }
+  
+  filterActiveRows(workerList: any) {
+    return workerList.filter((row: { enabled: any; }) => !this.hideInactive || row.enabled);
+  }
+
+  onCheckboxChange() {
+    this.cookieService.set('hideInactive', this.hideInactive? "true" : "false")
+    this.fetchWorkerList()
+  }
+
+  initHideInactive() {
+    this.hideInactive = this.cookieService.get('hideInactive') === "true";
+  }
+
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-  getAuth(){
-    console.log(this.auth.getAuthHeader())
-  }
-
-  onCreate(){
+  onCreate() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
@@ -55,11 +73,32 @@ export class WorkersComponent {
     const dialogRef = this.dialog.open(NewWorkerDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
-        this.fetchWorkerList(); 
+        this.fetchWorkerList();
       }
     });
   };
 
+  toggle(element: Worker) {
+    element.enabled = !element.enabled;
+    this.workerService.enableWorker(element).subscribe((resp) => {
+      console.log("super idol")
+    })
+  }
 
+  deleteWorker(worker: Worker) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(DeleteWorkerDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'comfirmed') {
+        this.workerService.deleteWorker(worker.id).subscribe((succes) => {
+          if (succes) {
+            this.fetchWorkerList();
+          }
+        })
+      }
+    });
+  }
 
 }
