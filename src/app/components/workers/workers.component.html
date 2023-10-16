@@ -32,7 +32,9 @@
             <!-- email Column -->
             <ng-container matColumnDef="email">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
-            <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> {{element.email}} </mat-cell>
+            <mat-cell *matCellDef="let element" [ngClass]="{'disabled-row': !element.enabled}"> 
+                <a [ngClass]="{'email-link':element.enabled, 'disabled-link': !element.enabled}" [href]="'mailto:' + element.email+'?body=Kedves '+ element.name+'!%0D%0D%0DÜdv,%0D'+getAdminName()">{{element.email}}</a> 
+            </mat-cell>
             </ng-container>
             <!-- phone Column -->
             <ng-container matColumnDef="phone">

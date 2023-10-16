@@ -23,6 +23,18 @@
    color: rgb(150, 150, 150);
 }
 
+.email-link{
+    text-decoration: none;
+    color: rgb(82, 142, 202);
+    
+}
+
+.disabled-link{
+    text-decoration: none;
+    color: rgb(150, 150, 150);
+}
+
 .inactive-filter{
     padding-left: 30px;
 }
+

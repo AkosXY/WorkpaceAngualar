@@ -25,7 +25,7 @@ export class WorkersComponent {
 
   hideInactive = false
 
-  constructor(private workerService: WorkerService, private auth: AuthenticationService, private dialog: MatDialog, private cookieService: CookieService) {
+  constructor(private workerService: WorkerService, private dialog: MatDialog, private cookieService: CookieService, private auth: AuthenticationService) {
     this.initHideInactive();
     this.initTable();
   }
@@ -99,6 +99,10 @@ export class WorkersComponent {
         })
       }
     });
+  }
+
+  getAdminName(){
+    return this.auth.getUserData().name
   }
 
 }
