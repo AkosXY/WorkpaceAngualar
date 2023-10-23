@@ -10,21 +10,25 @@ import { AuthenticationService } from './authentication.service';
 })
 export class WorkerService {
 
-  private static getMyWorkersEndpoint = "https://workpace-api.azurewebsites.net/admin/getMyWorkers";
-  private static addNewWorker = "https://workpace-api.azurewebsites.net/admin/register";
-  private static enableWorker = "https://workpace-api.azurewebsites.net/admin/enableUser";
-  private static deleteWorker = "https://workpace-api.azurewebsites.net/admin/deleteUser?userId=";
+  private static baseUrl = "https://workpace-api.azurewebsites.net/admin"
+
+  private static getMyWorkersEndpoint = "/getMyWorkers";
+  private static addNewWorker = "/register";
+  private static enableWorker = "/enableUser";
+  private static deleteWorker = "/deleteUser?userId=";
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
   getMyWorkers():Observable<Worker[]>{
-    return this.httpClient.get<Worker[]>(WorkerService.getMyWorkersEndpoint, 
+    const url = WorkerService.baseUrl + WorkerService.getMyWorkersEndpoint
+    return this.httpClient.get<Worker[]>(url, 
       {headers:this.auth.getAuthHeader()})
     
   }
 
   postNewWorker(worker: any):Observable<boolean>{
-    return this.httpClient.post(WorkerService.addNewWorker, worker, {
+    const url = WorkerService.baseUrl + WorkerService.addNewWorker
+    return this.httpClient.post(url, worker, {
         headers:this.auth.getAuthHeader(), 
         observe:"response"
       }).pipe(
@@ -37,8 +41,8 @@ export class WorkerService {
       user_id: worker.id,
       enabled: worker.enabled? 1:0
     }
-    console.log(body)
-    return this.httpClient.patch(WorkerService.enableWorker, body,{
+    const url = WorkerService.baseUrl + WorkerService.enableWorker
+    return this.httpClient.patch(url, body,{
       headers:this.auth.getAuthHeader(), 
       observe:"response"
     }).pipe(
@@ -47,7 +51,7 @@ export class WorkerService {
   }
 
   deleteWorker(id: number): Observable<boolean>{
-    let url = WorkerService.deleteWorker + id
+    let url = WorkerService.baseUrl + WorkerService.deleteWorker + id
     return this.httpClient.delete(url,{
       headers:this.auth.getAuthHeader(), 
       observe:"response"
