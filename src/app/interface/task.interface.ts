@@ -16,7 +16,6 @@ export interface Task {
     creation_dttm: Date,
     display_name: string
 
-
   }
 
 export interface TaskResponse {

@@ -1,9 +1,13 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Task, TaskState } from 'src/app/interface/task.interface';
 import { TaskService } from 'src/app/serivces/task.service';
+import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
+import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 
 @Component({
   selector: 'app-task-grid',
@@ -19,6 +23,7 @@ import { TaskService } from 'src/app/serivces/task.service';
 })
 export class TaskGridComponent {
 
+  taskList!: Task[];
   dataSource: any;
   columnsToDisplay = ['name', 'state'];
   columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand'];
@@ -28,37 +33,83 @@ export class TaskGridComponent {
     'Edit',
   ];
   expandedElement: Task | null | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private taskService: TaskService){
-      //this.initTable()
-      this.dataSource = this.CONST_DATA
+  constructor(private taskService: TaskService, private dialog: MatDialog){
+      this.initTable()
+      //this.dataSource = this.CONST_DATA
   }
 
   initTable(){
-    this.dataSource = new MatTableDataSource<Worker>();
-    this.fetchAllTaskList();
-    this.dataSource.sort = this.sort;
+    this.taskService.getMyTasks().subscribe((resp) => {
+      this.taskList = resp.tasks
+      console.log(this.taskList)
+      this.dataSource = new MatTableDataSource<Task>(this.taskList);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
+
+  fetchData(){
+    this.fetchAllTaskList()
   }
 
 
   fetchMyTaskList(){
     this.taskService.getMyTasks().subscribe((resp) => {
-        this.dataSource = resp.tasks
+      this.taskList = resp.tasks
+      this.dataSource.data = this.taskList 
     });
   }
 
   fetchAllTaskList(){
     this.taskService.getAllTasks().subscribe((resp) => {
-        console.log(resp)
-        this.dataSource = resp
+      this.taskList = resp
+      this.dataSource.data = this.taskList 
+
     });
   }
 
 
   handleButtonContainerClick(event: Event): void {
     event.stopPropagation();
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  createNewTask(){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "fit-content";
+    const dialogRef = this.dialog.open(NewTaskDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.fetchData();
+      }
+    });
+
+  }
+
+  deleteTask(task: Task) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(DeleteTaskDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'comfirmed') {
+        this.taskService.deleteTask(task.id).subscribe((succes) => {
+          if (succes) {
+            this.fetchData();
+          }
+        })
+      }
+    });
   }
 
   

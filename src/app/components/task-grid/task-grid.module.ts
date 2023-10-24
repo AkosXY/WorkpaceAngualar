@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { TaskGridComponent } from './task-grid.component';
 import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
+import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
+import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [
-    TaskGridComponent
+    TaskGridComponent,
+    NewTaskDialogComponent,
+    DeleteTaskDialogComponent
   ],
   imports: [
     CommonModule,

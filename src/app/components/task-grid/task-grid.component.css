@@ -84,6 +84,13 @@ table {
     background-color: rgb(40, 167, 69);
     color: white;
   }
+
+  .header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
     
 /*   .example-element-diagram {
     min-width: 80px;
