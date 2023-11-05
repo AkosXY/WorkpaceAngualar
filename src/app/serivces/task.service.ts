@@ -15,6 +15,7 @@ export class TaskService {
   private static getAllTasks = "/getAllTasks"
   private static createTask = "/createTask"
   private static deleteTask = "/deleteTask"
+  private static unassignTask = "/unassignTask"
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
@@ -56,7 +57,16 @@ export class TaskService {
     )
   }
 
-
+  unassignTask(id: number): Observable<boolean>{
+    let url = TaskService.baseUrl + TaskService.unassignTask
+    const body = { task_id: id }
+    return this.httpClient.patch(url, body, {
+      headers:this.auth.getAuthHeader(), 
+      observe:"response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
+  }
 
 
 }

@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { MatDialogRef } from "@angular/material/dialog";
-import { AuthenticationService } from "src/app/serivces/authentication.service";
 import { TaskGridComponent } from "../task-grid.component";
 
 @Component({

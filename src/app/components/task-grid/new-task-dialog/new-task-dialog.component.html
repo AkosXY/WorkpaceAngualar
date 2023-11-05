@@ -31,7 +31,7 @@
                     comment must be at least 5 characters long
                 </mat-error>
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field class="bottom-field">
                 <mat-label>time in minutes</mat-label>
                 <input matInput placeholder="enter estimated time" formControlName="timeForm" type="text">
                 <mat-icon matSuffix>access_time_filled</mat-icon>
@@ -42,23 +42,23 @@
                     must be a valid number
                 </mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>custom logo</mat-label>
+                <input matInput placeholder="image url" formControlName="imageForm" type="text">
+                <mat-icon matSuffix>image</mat-icon>
+            </mat-form-field>
 
         </div>
-        <div class="form-subsection">
-<!-- 
-            <mat-form-field>
-                <mat-label>comment</mat-label>
-                <input matInput placeholder="short task description" formControlName="usernameForm" type="text">
-                <mat-icon matSuffix>comment</mat-icon>
-                <mat-error *ngIf="commentForm?.errors?.['required']">
-                    comment required
-                </mat-error>
-                <mat-error *ngIf="commentForm?.errors?.['minlength']">
-                    comment must be at least 5 characters long
-                </mat-error>
-            </mat-form-field>
- -->
 
+        <div class="form-subsection">
+            <mat-card class="logo-card mat-elevation-z8">
+                <mat-card-header>
+                    <p class="logo-text">logo preview:</p>
+                </mat-card-header>
+                <mat-card-content ><!-- *ngIf="imageForm?.value && isUrlValid(imageForm?.value?.trim())" -->
+                    <img [src]="isUrlValid(imageForm?.value?.trim())? imageForm?.value:defaultLogo" class="logo-preview">
+                </mat-card-content>
+            </mat-card>
         </div>
     </form>
     <div class="button-container">

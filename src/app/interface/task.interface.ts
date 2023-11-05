@@ -24,9 +24,11 @@ export interface TaskResponse {
 }
 
 export enum TaskState {
-  TODO = 'TODO',
-  IN_PROGRESS = 'IN_PROGRESS',
-  ASSIGNED = 'ASSIGNED',
-  STARTED = 'STARTED',
-  DONE = 'DONE',
+  UNASSIGNED = 'UNASSIGNED', //Assign
+  ASSIGNED = 'ASSIGNED', //UnAssign
+  STARTED = 'STARTED', //
+  DONE = 'DONE', //Approve Reject
+  APPROVED = 'APPROVED', //Archive
+  ARCHIVED = 'ARCHIVED', //
+  DELETED = 'DELETED', //
 }

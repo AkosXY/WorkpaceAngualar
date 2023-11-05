@@ -8,6 +8,7 @@ import { Task, TaskState } from 'src/app/interface/task.interface';
 import { TaskService } from 'src/app/serivces/task.service';
 import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import { SelectControlValueAccessor } from '@angular/forms';
 
 @Component({
   selector: 'app-task-grid',
@@ -110,6 +111,14 @@ export class TaskGridComponent {
         })
       }
     });
+  }
+
+  unassignTask(task: Task){
+    this.taskService.unassignTask(task.id).subscribe((success) =>{
+      if(success){
+        this.fetchData();
+      }
+    })
   }
 
   
