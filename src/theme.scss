@@ -4,6 +4,13 @@
 $my-app-primary: mat-palette($mat-cyan, 900);
 $my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
 $my-app-warn:    mat-palette($mat-deep-orange);
-$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+$my-app-theme: mat-light-theme((
+  color: (
+    primary: $my-app-primary,
+    accent: $my-app-accent,
+    warn: $my-app-warn
+  )
+));
+
 $custom-toggle-color: mat-palette($mat-pink);
 @include angular-material-theme($my-app-theme);
