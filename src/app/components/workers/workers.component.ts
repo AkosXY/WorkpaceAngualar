@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ViewEncapsulation } from '@angular/core';
 import { WorkerService } from 'src/app/serivces/worker.service';
 import { Worker } from 'src/app/interface/worker.interface';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
@@ -13,7 +13,8 @@ import {CookieService} from 'ngx-cookie-service';
 @Component({
   selector: 'app-workers',
   templateUrl: './workers.component.html',
-  styleUrls: ['./workers.component.css']
+  styleUrls: ['./workers.component.css'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class WorkersComponent {
 
