@@ -1,0 +1,26 @@
+
+<mat-dialog-content>
+    <h1>Select worker to assign</h1>
+</mat-dialog-content>
+<mat-dialog-actions class="button-container">
+        
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Worker</mat-label>
+            <input type="text"
+                    placeholder="Assign"
+                    aria-label="Number"
+                    matInput
+                    [formControl]="assignForm"
+                    [matAutocomplete]="auto">
+            <mat-autocomplete requireSelection  #auto="matAutocomplete">
+            <mat-option *ngFor="let worker of filteredOptions | async" [value]="worker.name" (onSelectionChange)="selectedId = worker.id">
+                {{worker.name}}
+            </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </form>
+    
+
+    <button mat-raised-button color="primary" (click)="select()">Ok</button>
+</mat-dialog-actions>

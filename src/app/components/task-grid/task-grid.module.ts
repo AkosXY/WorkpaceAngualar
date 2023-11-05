@@ -6,6 +6,8 @@ import { TaskGridComponent } from './task-grid.component';
 import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
 import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-task-dialog.component';
+import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   declarations: [
     TaskGridComponent,
     NewTaskDialogComponent,
+    UnAssignTaskDialogComponent,
+    AssignTaskDialogComponent,
     DeleteTaskDialogComponent
   ],
   imports: [

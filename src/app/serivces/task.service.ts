@@ -16,11 +16,12 @@ export class TaskService {
   private static createTask = "/createTask"
   private static deleteTask = "/deleteTask"
   private static unassignTask = "/unassignTask"
+  private static assignTask = "/assignTask"
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
 
-  getMyTasks(pageSize: number = 10, skip: number = 0): Observable<TaskResponse> {
+  getMyTasks(pageSize: number = 1000, skip: number = 0): Observable<TaskResponse> {
     const url = TaskService.baseUrl + TaskService.getMyTasks + `?pageSize=${pageSize}&skip=${skip}`;
     return this.httpClient.get<TaskResponse>(url, {
       headers: this.auth.getAuthHeader()
@@ -60,6 +61,20 @@ export class TaskService {
   unassignTask(id: number): Observable<boolean>{
     let url = TaskService.baseUrl + TaskService.unassignTask
     const body = { task_id: id }
+    return this.httpClient.patch(url, body, {
+      headers:this.auth.getAuthHeader(), 
+      observe:"response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
+  }
+
+  assignTask(taskId:number, assigneeId:number){
+    let url = TaskService.baseUrl + TaskService.assignTask
+    const body = { 
+      task_id: taskId,
+      assignee_id: assigneeId
+     }
     return this.httpClient.patch(url, body, {
       headers:this.auth.getAuthHeader(), 
       observe:"response"

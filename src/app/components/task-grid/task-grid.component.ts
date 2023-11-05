@@ -8,7 +8,9 @@ import { Task, TaskState } from 'src/app/interface/task.interface';
 import { TaskService } from 'src/app/serivces/task.service';
 import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
-import { SelectControlValueAccessor } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-task-dialog.component';
+import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 
 @Component({
   selector: 'app-task-grid',
@@ -54,7 +56,7 @@ export class TaskGridComponent {
   }
 
   fetchData(){
-    this.fetchAllTaskList()
+    this.fetchMyTaskList()
   }
 
 
@@ -72,7 +74,6 @@ export class TaskGridComponent {
 
     });
   }
-
 
   handleButtonContainerClick(event: Event): void {
     event.stopPropagation();
@@ -114,11 +115,37 @@ export class TaskGridComponent {
   }
 
   unassignTask(task: Task){
-    this.taskService.unassignTask(task.id).subscribe((success) =>{
-      if(success){
-        this.fetchData();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(UnAssignTaskDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'comfirmed') {
+        this.taskService.unassignTask(task.id).subscribe((success) =>{
+          if(success){
+            this.fetchData();
+          }
+        })
       }
-    })
+    });
+  }
+
+  assignWorker(task: Task){
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    const dialogRef = this.dialog.open(AssignTaskDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log("id: "+result)
+          this.taskService.assignTask(task.id, result).subscribe((success) =>{
+            if(success){
+              this.fetchData();
+            }
+          })
+      }
+    });
+
   }
 
   

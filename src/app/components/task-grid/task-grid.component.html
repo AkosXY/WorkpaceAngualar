@@ -58,8 +58,9 @@
             <div>
               <h1>{{element.display_name}}</h1>
               <p *ngIf="element.comment" class="comment">{{element.comment}}</p>
-              <p *ngIf="element.time_started" >time started: {{element.time_started}}</p>
-              <p *ngIf="element.time_finished" >time finished:{{element.time_finished}}</p>
+              <p *ngIf="element.description" class="comment">{{element.comment}}</p>
+              <p *ngIf="element.time_started" >time started: {{element.time_started | date: 'yyyy-MM-dd HH:mm'}}</p>
+              <p *ngIf="element.time_finished" >time finished: {{element.time_finished | date: 'yyyy-MM-dd HH:mm'}}</p>
             </div>
           </div>
           <div class="right-container" *ngIf="element.state ==='DONE'"> <!-- TODO átbeszélni, mi hogyan mukodjon -->
@@ -67,7 +68,7 @@
             <button mat-raised-button color="warn">Reject</button>
           </div>
           <div class="right-container" *ngIf="element.state ==='UNASSIGNED'"> 
-            <button mat-raised-button color="primary">Assign</button>
+            <button mat-raised-button color="primary" (click)="assignWorker(element)">Assign</button>
           </div>
           <div class="right-container" *ngIf="element.state ==='ASSIGNED'"> 
             <button mat-raised-button color="primary" (click)="unassignTask(element)">Unassign</button>
