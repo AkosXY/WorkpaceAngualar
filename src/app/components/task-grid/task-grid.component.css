@@ -1,101 +1,121 @@
 table {
-    width: 100%;
-  }
-  
-  tr.example-detail-row {
-    height: 0;
-  }
-  
-  tr.example-element-row:not(.example-expanded-row):hover {
-    background: whitesmoke;
-  }
-  
-  tr.example-element-row:not(.example-expanded-row):active {
-    background: #efefef;
-  }
-  
-  .example-element-row td {
-    border-bottom-width: 0;
-  }
-  
-  .example-element-detail {
-    overflow: hidden;
-    display: flex;
-    justify-content: space-between;
-  }
+  width: 100%;
+}
 
-  
-  .example-element-description-attribution {
-    opacity: 0.5;
-  }
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: whitesmoke;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+}
 
 
-  .element-logo{
-    height: 80px;
-    width: 80px;
-    padding-top: 15px;
-    padding-right: 30px;
-    padding-bottom: 25px;
+.example-element-description-attribution {
+  opacity: 0.5;
+}
 
-  }
 
-  .left-container{
-    padding-left: 10px;
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 25px;
-  }
+.element-logo {
+  height: 80px;
+  width: 80px;
+  padding-top: 15px;
+  padding-right: 30px;
+  padding-bottom: 25px;
 
-  .right-container{
-    padding-right: 35px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
+}
 
-  }
+.left-container {
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 25px;
+}
 
-  .action-container{
-    text-align: right;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: right;
-  }
-  .fixed-width-cell {
-    max-width: 50%; /* Set a max width to prevent cell from growing */
-  }
+.right-container {
+  padding-right: 35px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
 
-  .button-spacing{
-    margin-right: 25px;
-  }
+}
 
-  .comment{
-    width: 450px;
-    color: rgb(100, 100, 100);
-  }
-  .right-container button:first-child {
-    margin-right: 10px; 
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+.action-container {
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: right;
+}
 
-  .mat-mdc-raised-button.approve-button {
-    background-color: rgb(40, 167, 69);
-    color: white;
-  }
+.fixed-width-cell {
+  max-width: 50%;
+  /* Set a max width to prevent cell from growing */
+}
 
-  .header-container{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.button-spacing {
+  margin-right: 25px;
+}
+
+.comment {
+  width: 450px;
+  color: rgb(100, 100, 100);
+}
+
+.right-container button:first-child {
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.mat-mdc-raised-button.approve-button {
+  background-color: rgb(40, 167, 69);
+  color: white;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .mat-mdc-raised-button.mat-primary {
   --mdc-protected-button-container-color: #339388;
 }
 
-    
+.unassigned-state {
+  color: rgb(82, 142, 202);
+}
+
+.done-state {
+  color: rgb(40, 167, 69);
+}
+
+.approved-state {
+  color: black;
+}
+
+.started-state {
+  color: rgb(255, 187, 0);
+}
+
+
+
 /*   .example-element-diagram {
     min-width: 80px;
     border: 2px solid black;
@@ -115,36 +135,34 @@ table {
     padding: 16px;
   } */
 
-  @media (max-width: 1200px) {
-    .comment{
-      width: 350px;
-    }
-    
+@media (max-width: 1200px) {
+  .comment {
+    width: 350px;
+  }
+
 }
 
-  @media (max-width: 1000px) {
-    .comment{
-      width: 150px;
-    }
+@media (max-width: 1000px) {
+  .comment {
+    width: 150px;
+  }
 
-    .element-logo{
-      height: 50px;
-      width: 50px;
-      padding-top: 1px;
-      padding-right: 20px;
-      padding-bottom: 15px;
-  
-    }
-  
-    .left-container{
-      padding-left: 5px;
-    }
-  
-    .right-container{
-      padding-right: 15px;
-    }
-  
-    
+  .element-logo {
+    height: 50px;
+    width: 50px;
+    padding-top: 1px;
+    padding-right: 20px;
+    padding-bottom: 15px;
+
+  }
+
+  .left-container {
+    padding-left: 5px;
+  }
+
+  .right-container {
+    padding-right: 15px;
+  }
+
+
 }
-
-  

@@ -8,7 +8,6 @@ import { Task, TaskState } from 'src/app/interface/task.interface';
 import { TaskService } from 'src/app/serivces/task.service';
 import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
-import { FormControl } from '@angular/forms';
 import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-task-dialog.component';
 import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
@@ -138,12 +137,11 @@ export class TaskGridComponent {
     const dialogRef = this.dialog.open(AssignTaskDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log("id: "+result)
-          this.taskService.assignTask(task.id, result).subscribe((success) =>{
-            if(success){
-              this.fetchData();
-            }
-          })
+        this.taskService.assignTask(task.id, result).subscribe((success) =>{
+          if(success){
+            this.fetchData();
+          }
+        })
       }
     });
   }
@@ -152,19 +150,23 @@ export class TaskGridComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    //dialogConfig.data = task;
 
     const dialogRef = this.dialog.open(ReviewTaskDialogComponent, {
       data: task 
     });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-/*         console.log("id: "+result)
-          this.taskService.assignTask(task.id, result).subscribe((success) =>{
-            if(success){
-              this.fetchData();
-            }
-          }) */
+        this.handleReviewOutcome(task, result);
+        console.log(result)
+      }
+    });
+  }
+
+  handleReviewOutcome(task: Task, action: string) {
+    this.taskService[action === 'approved' ? 'approveTask' : 'rejectTask'](task).subscribe((success) => {
+      if (success) {
+        this.fetchData();
       }
     });
   }

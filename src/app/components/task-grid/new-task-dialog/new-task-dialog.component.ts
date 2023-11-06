@@ -1,9 +1,11 @@
 import { Component } from "@angular/core";
-import { FormControl, FormGroup, ValidatorFn, Validators } from "@angular/forms";
+import { FormControl, FormGroup, FormBuilder, ValidatorFn, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/serivces/authentication.service";
 import { TaskGridComponent } from "../task-grid.component";
 import { TaskService } from "src/app/serivces/task.service";
+import { MatSliderChange } from "@angular/material/slider";
+
 
 @Component({
   selector: 'new-task-dialog',
@@ -14,33 +16,39 @@ import { TaskService } from "src/app/serivces/task.service";
 export class NewTaskDialogComponent {
 
   defaultLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Icon_Notes.svg/640px-Icon_Notes.svg.png"
+  constructor(private auth: AuthenticationService, private taskService: TaskService, private dialogRef: MatDialogRef<TaskGridComponent>) {}
 
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private dialogRef: MatDialogRef<TaskGridComponent>) { }
 
   submitForm = new FormGroup({
     nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    commentForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    commentForm: new FormControl(''),
     timeForm: new FormControl('', [Validators.required, Validators.pattern(/^-?\d*(\.\d+)?$/)]),
-    imageForm: new FormControl('') //,[Validators.required, Validators.pattern(/^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i)]
-
+    imageForm: new FormControl(''), //,[Validators.required, Validators.pattern(/^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i)]
+    descriptionForm: new FormControl(''),
   })
+
+  
+  numOfPictures: number = 0; 
+
+
 
   submit() {
     if (this.submitForm.valid) {
       console.log(this.getCurrentDate())
 
+
       const task = {
         name: this.nameForm?.value,
         comment: this.commentForm?.value,
-        state: "ASSIGNED",//TODO dropdown
+        state: "UNASSIGNED",
         supervisor_id: this.auth.getUserData().id,
-        assignee_id: 4, //TODO dropdown
+        assignee_id: null, 
         due_date: null, //TODO calendar
-        time_target: null, //TODO calendar
+        time_target: this.timeForm?.value, 
         location_id: 1, //TODO mi ez?
-        logo: this.isUrlValid(this.imageForm?.value) ? this.imageForm?.value : this.defaultLogo, //TODO ezt hogyan töltsük fel?
-        image_available: false, //TODO ez kell?
-        image_number: null, //TODO nulla?
+        logo: this.isUrlValid(this.imageForm?.value) ? this.imageForm?.value : this.defaultLogo, 
+        image_available: false, 
+        image_number: this.numOfPictures, 
         time_started: null,
         time_finished: null,
         creation_dttm: this.getCurrentDate()
@@ -54,17 +62,20 @@ export class NewTaskDialogComponent {
     }
   }
 
+
+
   getCurrentDate() {
     const today = new Date();
     const year = today.getFullYear();
     const month = (today.getMonth() + 1).toString().padStart(2, '0');
     const day = today.getDate().toString().padStart(2, '0');
-
+  
     return `${year}-${month}-${day}`;
   }
 
   isUrlValid(url: any) {
-    const pattern = /^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i;
+    /* const pattern = /^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i; */
+    const pattern = /^(http(s?):\/\/).+$/i;
     if (pattern.test(url)) {
       return true
     } else {

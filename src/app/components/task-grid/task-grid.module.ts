@@ -10,6 +10,9 @@ import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-tas
 import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 import { CapitalizeFirstLetterPipe } from 'src/app/shared/capitalize-first-letter.pipe';
 import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
+import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
+
 
 
 const routes: Routes = [
@@ -33,6 +36,7 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    FormsModule,
     SharedMaterialModule,
     RouterModule.forChild(routes),
 

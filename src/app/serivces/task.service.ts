@@ -18,6 +18,8 @@ export class TaskService {
   private static deleteTask = "/deleteTask"
   private static unassignTask = "/unassignTask"
   private static assignTask = "/assignTask"
+  private static acceptTask = "/acceptTask"
+  private static rejectTask = "/rejectTask"
   private static getImagesForTask = "/getImagesForTask"
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
@@ -44,49 +46,75 @@ export class TaskService {
     });
   }
 
-  createTask(task: any):Observable<boolean> {
+  createTask(task: any): Observable<boolean> {
     const url = TaskService.baseUrl + TaskService.createTask
     return this.httpClient.post(url, task, {
-        headers:this.auth.getAuthHeader(), 
-        observe:"response"
-      }).pipe(
-        map(resp => resp.status === 200)
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
+    }).pipe(
+      map(resp => resp.status === 200)
     )
 
   }
 
-  deleteTask(id: number): Observable<boolean>{
+  deleteTask(id: number): Observable<boolean> {
     let url = TaskService.baseUrl + TaskService.deleteTask
     const requestBody = { task_id: id }
     return this.httpClient.delete(url, {
-      headers:this.auth.getAuthHeader(), 
+      headers: this.auth.getAuthHeader(),
       body: requestBody,
-      observe:"response"
+      observe: "response"
     }).pipe(
       map(resp => resp.status === 200)
     )
   }
 
-  unassignTask(id: number): Observable<boolean>{
+  unassignTask(id: number): Observable<boolean> {
     let url = TaskService.baseUrl + TaskService.unassignTask
     const body = { task_id: id }
     return this.httpClient.patch(url, body, {
-      headers:this.auth.getAuthHeader(), 
-      observe:"response"
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
     }).pipe(
       map(resp => resp.status === 200)
     )
   }
 
-  assignTask(taskId:number, assigneeId:number){
+  assignTask(taskId: number, assigneeId: number) {
     let url = TaskService.baseUrl + TaskService.assignTask
-    const body = { 
+    const body = {
       task_id: taskId,
       assignee_id: assigneeId
-     }
+    }
     return this.httpClient.patch(url, body, {
-      headers:this.auth.getAuthHeader(), 
-      observe:"response"
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
+  }
+
+
+  approveTask(task: Task) {
+    let url = TaskService.baseUrl + TaskService.acceptTask
+    const body = { task_id: task.id }
+    return this.httpClient.patch(url, body, {
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
+  }
+
+  rejectTask(task: Task) {
+    let url = TaskService.baseUrl + TaskService.rejectTask
+    const body = {
+      task_id: task.id,
+      comment: task.comment
+    }
+    return this.httpClient.patch(url, body, {
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
     }).pipe(
       map(resp => resp.status === 200)
     )

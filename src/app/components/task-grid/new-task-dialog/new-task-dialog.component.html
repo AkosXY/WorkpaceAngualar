@@ -42,11 +42,19 @@
                     must be a valid number
                 </mat-error>
             </mat-form-field>
+
             <mat-form-field>
-                <mat-label>custom logo</mat-label>
-                <input matInput placeholder="image url" formControlName="imageForm" type="text">
-                <mat-icon matSuffix>image</mat-icon>
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
+            <mat-form-field class="description-form" subscriptSizing="dynamic">
+                <mat-label>Add description for task</mat-label>
+                <textarea matInput placeholder="Description" formControlName="descriptionForm"></textarea>
+            </mat-form-field>
+
 
         </div>
 
@@ -59,6 +67,23 @@
                     <img [src]="isUrlValid(imageForm?.value?.trim())? imageForm?.value:defaultLogo" class="logo-preview">
                 </mat-card-content>
             </mat-card>
+            <mat-form-field>
+                <mat-label>custom logo</mat-label>
+                <input matInput placeholder="image url" formControlName="imageForm" type="text">
+                <mat-icon matSuffix>image</mat-icon>
+            </mat-form-field>
+            <div class="label-container">
+                <label >Number of pictures required:</label>
+                <label >{{numOfPictures}}</label>
+            </div>
+            <mat-slider
+                [max]="6"
+                [min]="0"
+                [step]="1"         
+                >
+            <input matSliderThumb [(ngModel)]="numOfPictures" [ngModelOptions]="{standalone: true}">
+            </mat-slider>
+  
         </div>
     </form>
     <div class="button-container">

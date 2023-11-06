@@ -20,11 +20,11 @@
 
 
 button {
-    margin: 25px;
+    margin: 10px;
 }
 
 .dialog-content {
-    min-height: 100px; /* Adjust the height as needed */
+    min-height: 100px;
     height: fit-content;
 }
 
@@ -39,7 +39,15 @@ button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: flex-end;
+}
+
+.action-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: -webkit-fill-available;
 }
 
 
@@ -51,4 +59,12 @@ button {
 .image {
     padding-right: 10px;
     padding-left: 10px;
+}
+
+.comment-section{
+    width: 450px;
+    padding-left: 10px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }

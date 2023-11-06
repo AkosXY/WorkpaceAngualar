@@ -1,6 +1,5 @@
-
 <mat-dialog-content class="dialog-content">
-    <div class="button-close" >
+    <div class="button-close">
         <h1>Start review process:</h1>
         <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
             <mat-icon>close</mat-icon>
@@ -11,14 +10,20 @@
 <mat-dialog-actions class="review-container">
     <div *ngIf="imageSource && imageSource.length > 0" class="image-container">
         <div *ngFor="let image of imageSource">
-          <!-- <p>{{ displayImage(image) }}</p> -->
-          <img [src]="displayImage(image)" class="image" alt="Image Source">
+            <img [src]="displayImage(image)" class="image" alt="Image Source">
         </div>
     </div>
-    <div class="button-container">
-        <button mat-raised-button class="approve-button">Approve</button>
-        <button mat-raised-button color="warn">Reject</button>
-        <button mat-raised-button color="none" (click)="select()">Cancel</button>
+
+    <div class="action-container">
+        <mat-form-field class="comment-section" subscriptSizing="dynamic">
+            <mat-label>Add feedback in case of rejection</mat-label>
+            <textarea matInput placeholder="Feedback" [(ngModel)]="feedbackText"></textarea>
+        </mat-form-field>
+        <div class="button-container">
+            <button mat-raised-button class="approve-button" (click)="approve()">Approve</button>
+            <button mat-raised-button color="warn" (click)="reject()">Reject</button>
+            <button mat-raised-button color="none" matDialogClose>Cancel</button>
+        </div>
     </div>
 
 </mat-dialog-actions>

@@ -18,6 +18,9 @@ import { CommonModule } from '@angular/common';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSliderModule } from '@angular/material/slider';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -43,6 +46,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDialogModule,
     MatSidenavModule,
     MatAutocompleteModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSlideToggleModule
 
 
@@ -66,6 +72,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatDialogModule,
     MatSidenavModule,
     MatAutocompleteModule,
+    MatSliderModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatSlideToggleModule
   ]
 
