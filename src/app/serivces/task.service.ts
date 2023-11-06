@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { Task, TaskResponse } from '../interface/task.interface';
+import { Image } from '../interface/image.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class TaskService {
   private static deleteTask = "/deleteTask"
   private static unassignTask = "/unassignTask"
   private static assignTask = "/assignTask"
+  private static getImagesForTask = "/getImagesForTask"
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
@@ -31,6 +33,13 @@ export class TaskService {
   getAllTasks(): Observable<Task[]> {
     const url = TaskService.baseUrl + TaskService.getAllTasks;
     return this.httpClient.get<Task[]>(url, {
+      headers: this.auth.getAuthHeader()
+    });
+  }
+
+  getImagesForTask(task: Task): Observable<Image[]> {
+    const url = TaskService.baseUrl + TaskService.getImagesForTask + `?taskId=${task.id}`;
+    return this.httpClient.get<Image[]>(url, {
       headers: this.auth.getAuthHeader()
     });
   }

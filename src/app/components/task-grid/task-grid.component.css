@@ -91,6 +91,10 @@ table {
     justify-content: space-between;
 }
 
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #339388;
+}
+
     
 /*   .example-element-diagram {
     min-width: 80px;

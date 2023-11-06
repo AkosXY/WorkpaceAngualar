@@ -11,6 +11,7 @@ import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dial
 import { FormControl } from '@angular/forms';
 import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-task-dialog.component';
 import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
+import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
 
 @Component({
   selector: 'app-task-grid',
@@ -145,7 +146,27 @@ export class TaskGridComponent {
           })
       }
     });
+  }
 
+  review(task: Task) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    //dialogConfig.data = task;
+
+    const dialogRef = this.dialog.open(ReviewTaskDialogComponent, {
+      data: task 
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+/*         console.log("id: "+result)
+          this.taskService.assignTask(task.id, result).subscribe((success) =>{
+            if(success){
+              this.fetchData();
+            }
+          }) */
+      }
+    });
   }
 
   

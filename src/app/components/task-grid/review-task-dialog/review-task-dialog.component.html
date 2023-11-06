@@ -1,0 +1,24 @@
+
+<mat-dialog-content class="dialog-content">
+    <div class="button-close" >
+        <h1>Start review process:</h1>
+        <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="review-container">
+    <div *ngIf="imageSource && imageSource.length > 0" class="image-container">
+        <div *ngFor="let image of imageSource">
+          <!-- <p>{{ displayImage(image) }}</p> -->
+          <img [src]="displayImage(image)" class="image" alt="Image Source">
+        </div>
+    </div>
+    <div class="button-container">
+        <button mat-raised-button class="approve-button">Approve</button>
+        <button mat-raised-button color="warn">Reject</button>
+        <button mat-raised-button color="none" (click)="select()">Cancel</button>
+    </div>
+
+</mat-dialog-actions>
