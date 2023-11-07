@@ -30,10 +30,13 @@ export class AssignTaskDialogComponent {
 
   initOptions() {
     this.workerService.getMyWorkers().subscribe((resp) => {
-      this.options = resp;
+      this.options = this.filterActiveRows(resp);
       this.assignForm.reset();
-      console.log(resp)
     });
+  }
+
+  filterActiveRows(workerList: any) {
+    return workerList.filter((row: { enabled: boolean }) => row.enabled === true);
   }
 
   private _filter(value: string): Worker[] {
