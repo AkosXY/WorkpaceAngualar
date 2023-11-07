@@ -1,0 +1,57 @@
+<div class="container">
+
+    <div class="button-close" >
+        <h1>Add details:</h1>
+        <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <form class="form" [formGroup]="submitForm">
+        <div class="form-subsection">
+            <mat-form-field>
+                <mat-label>name</mat-label>
+                <input matInput placeholder="enter your name" formControlName="nameForm" type="text">
+                <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="nameForm?.errors?.['required']">
+                    name required
+                </mat-error>
+                <mat-error *ngIf="nameForm?.errors?.['minlength']">
+                    name must be at least 5 characters long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>address</mat-label>
+                <input matInput placeholder="enter your username" formControlName="addressForm" type="text">
+                <mat-icon matSuffix>person_outline</mat-icon>
+                <mat-error *ngIf="addressForm?.errors?.['required']">
+                    address required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>latitude</mat-label>
+                <input matInput placeholder="enter your username" formControlName="latitudeForm" type="text">
+                <mat-icon matSuffix>person_outline</mat-icon>
+                <mat-error *ngIf="latitudeForm?.errors?.['required']">
+                    latitude required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>longitude</mat-label>
+                <input matInput placeholder="enter your username" formControlName="longitudeForm" type="text">
+                <mat-icon matSuffix>person_outline</mat-icon>
+                <mat-error *ngIf="longitudeForm?.errors?.['required']">
+                    longitude required
+                </mat-error>
+            </mat-form-field>
+          
+        </div>
+        <div class="form-subsection">
+                MAP
+        </div>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" (click)="submit()">Save</button>
+    </div>
+</div>

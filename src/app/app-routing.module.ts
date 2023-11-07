@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'pending-tasks', loadChildren: () => import("./components/task-grid/task-grid.module").then(m => m.TaskGridModule) },
   { path: 'my-workers', loadChildren: () => import("./components/workers/workers.module").then(m => m.WorkersModule) },
   { path: 'import', loadChildren: () => import("./components/data-import/data-import.module").then(m => m.DataImportModule) },
+  { path: 'location', loadChildren: () => import("./components/location/location.module").then(m => m.LocationModule) },
   { path: 'analytics', loadChildren: () => import("./components/analytics/analytics.module").then(m => m.AnalyticsModule) },
   { path: 'profile', loadChildren: () => import("./components/profile/profile.module").then(m => m.ProfileModule) }
 

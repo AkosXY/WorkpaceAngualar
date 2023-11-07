@@ -37,7 +37,8 @@
         <div (click)="handleButtonContainerClick($event)">
           <button mat-icon-button><mat-icon>edit</mat-icon></button>
           <button mat-icon-button class="button-spacing"
-            (click)="deleteTask(element)"><mat-icon>delete</mat-icon></button>
+            (click)="deleteTask(element)"><mat-icon>delete</mat-icon>
+          </button>
         </div>
         <button mat-icon-button aria-label="expand row"
           (click)="(expandedElement = expandedElement === element ? null : element); $event.stopPropagation()">

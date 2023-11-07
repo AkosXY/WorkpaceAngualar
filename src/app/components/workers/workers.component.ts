@@ -82,7 +82,6 @@ export class WorkersComponent {
   toggle(element: Worker) {
     element.enabled = !element.enabled;
     this.workerService.enableWorker(element).subscribe((resp) => {
-      console.log("super idol")
     })
   }
 
