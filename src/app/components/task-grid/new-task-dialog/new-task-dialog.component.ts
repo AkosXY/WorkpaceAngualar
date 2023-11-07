@@ -5,6 +5,7 @@ import { AuthenticationService } from "src/app/serivces/authentication.service";
 import { TaskGridComponent } from "../task-grid.component";
 import { TaskService } from "src/app/serivces/task.service";
 import { MatSliderChange } from "@angular/material/slider";
+import { DatePipe } from "@angular/common";
 
 
 @Component({
@@ -16,36 +17,34 @@ import { MatSliderChange } from "@angular/material/slider";
 export class NewTaskDialogComponent {
 
   defaultLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Icon_Notes.svg/640px-Icon_Notes.svg.png"
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private dialogRef: MatDialogRef<TaskGridComponent>) {}
+  constructor(private auth: AuthenticationService, private taskService: TaskService, private dialogRef: MatDialogRef<TaskGridComponent>, private datePipe: DatePipe) {}
 
 
   submitForm = new FormGroup({
     nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
     commentForm: new FormControl(''),
-    timeForm: new FormControl('', [Validators.required, Validators.pattern(/^-?\d*(\.\d+)?$/)]),
+    timeForm: new FormControl('', [Validators.pattern(/^-?\d*(\.\d+)?$/)]),
     imageForm: new FormControl(''), //,[Validators.required, Validators.pattern(/^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i)]
-    descriptionForm: new FormControl(''),
+    dueDateForm: new FormControl<Date | null>(null),
+    descriptionForm: new FormControl('')
+
   })
 
   
   numOfPictures: number = 0; 
 
-
-
   submit() {
     if (this.submitForm.valid) {
-      console.log(this.getCurrentDate())
-
-
       const task = {
         name: this.nameForm?.value,
         comment: this.commentForm?.value,
+        description: this.descriptionForm?.value,
         state: "UNASSIGNED",
         supervisor_id: this.auth.getUserData().id,
         assignee_id: null, 
-        due_date: null, //TODO calendar
+        due_date: this.datePipe.transform(this.dueDateForm?.value, 'yyyy-MM-dd'), 
         time_target: this.timeForm?.value, 
-        location_id: 1, //TODO mi ez?
+        location_id: 1, //TODO 
         logo: this.isUrlValid(this.imageForm?.value) ? this.imageForm?.value : this.defaultLogo, 
         image_available: false, 
         image_number: this.numOfPictures, 
@@ -98,6 +97,13 @@ export class NewTaskDialogComponent {
   get imageForm() {
     return this.submitForm.get('imageForm');
   }
+  
+  get descriptionForm() {
+    return this.submitForm.get('descriptionForm');
+  }
 
+  get dueDateForm() {
+    return this.submitForm.get('dueDateForm');
+  }
 
 }

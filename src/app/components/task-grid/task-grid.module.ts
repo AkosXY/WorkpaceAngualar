@@ -11,7 +11,8 @@ import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dial
 import { CapitalizeFirstLetterPipe } from 'src/app/shared/capitalize-first-letter.pipe';
 import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
 import { FormsModule } from '@angular/forms';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
 
 
 
@@ -41,6 +42,7 @@ const routes: Routes = [
     RouterModule.forChild(routes),
 
   ],
+  providers:[DatePipe],
   exports: [RouterModule]
 
 })

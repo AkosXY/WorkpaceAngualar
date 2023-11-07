@@ -39,14 +39,14 @@
                     time estimation required
                 </mat-error>
                 <mat-error *ngIf="timeForm?.errors?.['pattern']">
-                    must be a valid number
+                    must be a valid number or empty
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field>
-                <mat-label>Choose a date</mat-label>
-                <input matInput [matDatepicker]="picker">
-                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-label>Choose a due date</mat-label>
+                <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" formControlName="dueDateForm">
+                <mat-hint>YYYY/MM/DD"</mat-hint>
                 <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>

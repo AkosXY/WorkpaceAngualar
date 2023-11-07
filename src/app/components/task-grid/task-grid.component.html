@@ -57,14 +57,11 @@
               <h1>{{element.display_name}}</h1>
               <p *ngIf="element.comment" class="comment">{{element.comment}}</p>
               <p *ngIf="element.description" class="comment">{{element.description}}</p>
+              <p *ngIf="element.due_date" class="comment">{{element.due_date}}</p>
               <p *ngIf="element.time_started">time started: {{element.time_started | date: 'yyyy-MM-dd HH:mm'}}</p>
               <p *ngIf="element.time_finished">time finished: {{element.time_finished | date: 'yyyy-MM-dd HH:mm'}}</p>
             </div>
           </div>
-          <!--           <div class="right-container" *ngIf="element.state ==='DONE'"> 
-            <button mat-raised-button class="approve-button">Approve</button>
-            <button mat-raised-button color="warn">Reject</button>
-          </div> -->
           <div class="right-container" *ngIf="element.state ==='DONE'">
             <button mat-raised-button color="primary" (click)="review(element)">Start review</button>
           </div>
@@ -85,6 +82,6 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" class="footer">
+  <mat-paginator [pageSizeOptions]="[5, 10]" class="footer">
   </mat-paginator>
 </div>

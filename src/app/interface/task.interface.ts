@@ -2,7 +2,7 @@ export interface Task {
     id: number,
     name: string,
     comment: string,
-    decsription: string,
+    description: string,
     state: TaskState,
     supervisor_id: number,
     assignee_id: string,
