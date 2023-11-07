@@ -4,6 +4,8 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { LocationService } from "src/app/serivces/location.service";
 import { LocationComponent } from "../location.component";
 
+
+
 @Component({
   selector: 'new-location-dialog',
   templateUrl: 'new-location-dialog.component.html',
@@ -11,7 +13,10 @@ import { LocationComponent } from "../location.component";
 
 })
 export class NewLocationDialogComponent {
-  constructor(private locationService: LocationService, private dialogRef: MatDialogRef<LocationComponent>) { }
+  constructor(private locationService: LocationService, private dialogRef: MatDialogRef<LocationComponent>) { 
+   /*  this.submitForm.get('latitudeForm')?.readonly();
+    this.submitForm.get('longitudeForm')?.readonly(); */
+  }
 
   submitForm = new FormGroup({
     nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -20,6 +25,34 @@ export class NewLocationDialogComponent {
     longitudeForm: new FormControl('', [Validators.required]),
     radiusForm: new FormControl(60)
   })
+
+  searchOptions: any = {
+    componentRestrictions: { country: 'IN' }
+  }  
+
+  options: google.maps.MapOptions = {
+    center: {lat: 47.4923, lng: 19.0433},
+    zoom: 11
+  };
+
+  markerOptions: google.maps.MarkerOptions = {draggable: true};
+  selection = {lat: 47.4923, lng: 19.0433}
+  selected = false;
+
+
+  addMarker(event: google.maps.MapMouseEvent) {
+    if(this.selection){
+      this.selection.lat = event.latLng?.toJSON().lat ? event.latLng?.toJSON().lat : this.selection.lat;
+      this.selection.lng = event.latLng?.toJSON().lng ? event.latLng?.toJSON().lng : this.selection.lng;
+      this.selected = true
+      this.latitudeForm?.setValue(this.selection.lat.toString())
+      this.longitudeForm?.setValue(this.selection.lng.toString())
+      console.log(this.selection)
+    }
+  }
+  onDragend(event:any){
+    this.addMarker(event);
+  }
 
   submit() {
     if (this.submitForm.valid) {

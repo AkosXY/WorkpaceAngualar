@@ -6,7 +6,7 @@ import { LocationComponent } from './location.component';
 import { FormsModule } from '@angular/forms';
 import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
 import { NewLocationDialogComponent } from './new-location-dialog/new-location-dialog.component';
-
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 const routes: Routes = [
@@ -26,6 +26,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     SharedMaterialModule,
+    GoogleMapsModule,
     RouterModule.forChild(routes),
 
   ],
