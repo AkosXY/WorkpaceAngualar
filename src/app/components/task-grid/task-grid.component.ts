@@ -18,8 +18,8 @@ import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dial
   styleUrls: ['./task-grid.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ]
@@ -29,7 +29,7 @@ export class TaskGridComponent {
   taskList!: Task[];
   dataSource: any;
   columnsToDisplay = ['name', 'state'];
-  columnsToDisplayWithExpand = [...this.columnsToDisplay,  'expand'];
+  columnsToDisplayWithExpand = [...this.columnsToDisplay, 'expand'];
   columnNames: string[] = [
     'Name',
     'State',
@@ -40,12 +40,12 @@ export class TaskGridComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private taskService: TaskService, private dialog: MatDialog){
-      this.initTable()
-      //this.dataSource = this.CONST_DATA
+  constructor(private taskService: TaskService, private dialog: MatDialog) {
+    this.initTable()
+    //this.dataSource = this.CONST_DATA
   }
 
-  initTable(){
+  initTable() {
     this.taskService.getMyTasks().subscribe((resp) => {
       this.taskList = resp.tasks
       console.log(this.taskList)
@@ -55,22 +55,22 @@ export class TaskGridComponent {
     });
   }
 
-  fetchData(){
+  fetchData() {
     this.fetchMyTaskList()
   }
 
 
-  fetchMyTaskList(){
+  fetchMyTaskList() {
     this.taskService.getMyTasks().subscribe((resp) => {
       this.taskList = resp.tasks
-      this.dataSource.data = this.taskList 
+      this.dataSource.data = this.taskList
     });
   }
 
-  fetchAllTaskList(){
+  fetchAllTaskList() {
     this.taskService.getAllTasks().subscribe((resp) => {
       this.taskList = resp
-      this.dataSource.data = this.taskList 
+      this.dataSource.data = this.taskList
 
     });
   }
@@ -84,12 +84,28 @@ export class TaskGridComponent {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  createNewTask(){
+  createNewTask() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.width = "fit-content";
     const dialogRef = this.dialog.open(NewTaskDialogComponent);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'refresh') {
+        this.fetchData();
+      }
+    });
+
+  }
+
+  editTask(task: Task) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "fit-content";
+    const dialogRef = this.dialog.open(NewTaskDialogComponent, {
+      data: task
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
         this.fetchData();
@@ -114,15 +130,15 @@ export class TaskGridComponent {
     });
   }
 
-  unassignTask(task: Task){
+  unassignTask(task: Task) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(UnAssignTaskDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'comfirmed') {
-        this.taskService.unassignTask(task.id).subscribe((success) =>{
-          if(success){
+        this.taskService.unassignTask(task.id).subscribe((success) => {
+          if (success) {
             this.fetchData();
           }
         })
@@ -130,15 +146,15 @@ export class TaskGridComponent {
     });
   }
 
-  assignWorker(task: Task){
+  assignWorker(task: Task) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(AssignTaskDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.taskService.assignTask(task.id, result).subscribe((success) =>{
-          if(success){
+        this.taskService.assignTask(task.id, result).subscribe((success) => {
+          if (success) {
             this.fetchData();
           }
         })
@@ -152,7 +168,7 @@ export class TaskGridComponent {
     dialogConfig.autoFocus = true;
 
     const dialogRef = this.dialog.open(ReviewTaskDialogComponent, {
-      data: task 
+      data: task
     });
 
     dialogRef.afterClosed().subscribe((result) => {
@@ -171,7 +187,7 @@ export class TaskGridComponent {
     });
   }
 
-  
+
   CONST_DATA = [
     {
       id: 2,

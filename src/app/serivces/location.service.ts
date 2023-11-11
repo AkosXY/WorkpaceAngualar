@@ -9,22 +9,31 @@ import { Location } from '../interface/location.interface';
 })
 export class LocationService {
 
-  private static baseUrl = "https://workpace-api.azurewebsites.net/admin"
+  private static baseUrl = "https://workpace-api.azurewebsites.net"
+  private static adminUrl = "https://workpace-api.azurewebsites.net/admin"
 
   private static getLocations = "/getLocations";
+  private static getLocation = "/getLocation";
   private static saveLocation = "/saveLocation";
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
   getLocations(): Observable<Location[]> {
-    const url = LocationService.baseUrl + LocationService.getLocations
+    const url = LocationService.adminUrl + LocationService.getLocations
     return this.httpClient.get<Location[]>(url,
+      { headers: this.auth.getAuthHeader() })
+
+  }
+  
+  getLocation(locationId: number): Observable<Location> {
+    const url = LocationService.baseUrl + LocationService.getLocation + `?locationId=${locationId}`
+    return this.httpClient.get<Location>(url,
       { headers: this.auth.getAuthHeader() })
 
   }
 
   saveLocation(location: any): Observable<boolean> {
-    const url = LocationService.baseUrl + LocationService.saveLocation
+    const url = LocationService.adminUrl + LocationService.saveLocation
     return this.httpClient.post(url, location, {
       headers: this.auth.getAuthHeader(),
       observe: "response"

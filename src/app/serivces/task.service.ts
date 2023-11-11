@@ -15,6 +15,7 @@ export class TaskService {
   private static getMyTasks = "/getMyTasks"
   private static getAllTasks = "/getAllTasks"
   private static createTask = "/createTask"
+  private static modifyTask = "/modifyTask"
   private static deleteTask = "/deleteTask"
   private static unassignTask = "/unassignTask"
   private static assignTask = "/assignTask"
@@ -54,7 +55,17 @@ export class TaskService {
     }).pipe(
       map(resp => resp.status === 200)
     )
+  }
 
+  modifyTask(task: any): Observable<boolean> {
+    const url = TaskService.baseUrl + TaskService.modifyTask
+    console.log(task)
+    return this.httpClient.patch(url, task, {
+      headers: this.auth.getAuthHeader(),
+      observe: "response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
   }
 
   deleteTask(id: number): Observable<boolean> {
