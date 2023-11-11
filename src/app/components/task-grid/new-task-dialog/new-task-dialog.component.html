@@ -21,6 +21,21 @@
                 </mat-error>
             </mat-form-field>
             <mat-form-field>
+                <mat-label>Location</mat-label>
+                <input type="text"
+                        placeholder="select location"
+                        aria-label="Number"
+                        matInput
+                        formControlName="locationForm"
+                        [matAutocomplete]="auto">
+                <mat-autocomplete requireSelection  #auto="matAutocomplete">
+                <mat-option *ngFor="let location of filteredOptions | async" [value]="location.display_name" (onSelectionChange)="selectedLocation = location.id">
+                    {{location.display_name}}
+                </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field>
                 <mat-label>comment</mat-label>
                 <input matInput placeholder="short task description" formControlName="commentForm" type="text">
                 <mat-icon matSuffix>comment</mat-icon>

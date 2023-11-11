@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { LocationService } from 'src/app/serivces/location.service';
+import { Location } from 'src/app/interface/location.interface';
 import { NewLocationDialogComponent } from './new-location-dialog/new-location-dialog.component';
 
 @Component({
@@ -47,6 +48,7 @@ export class LocationComponent {
   initTable(){
     this.locationService.getLocations().subscribe((resp) => {
       this.locationList = resp;
+      console.log(this.locationList)
       this.dataSource = new MatTableDataSource<Location>(this.locationList);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

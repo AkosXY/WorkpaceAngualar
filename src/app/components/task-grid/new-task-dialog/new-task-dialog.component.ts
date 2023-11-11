@@ -1,11 +1,14 @@
-import { Component } from "@angular/core";
-import { FormControl, FormGroup, FormBuilder, ValidatorFn, Validators } from "@angular/forms";
-import { MatDialogRef } from "@angular/material/dialog";
+import { Component, Inject } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { MAT_DIALOG_DATA, MatDialogRef } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/serivces/authentication.service";
 import { TaskGridComponent } from "../task-grid.component";
 import { TaskService } from "src/app/serivces/task.service";
-import { MatSliderChange } from "@angular/material/slider";
 import { DatePipe } from "@angular/common";
+import { Observable, startWith, map, filter } from "rxjs";
+import { Location } from "src/app/interface/location.interface";
+import { LocationService } from "src/app/serivces/location.service";
+import { Task } from "src/app/interface/task.interface";
 
 
 @Component({
@@ -17,7 +20,14 @@ import { DatePipe } from "@angular/common";
 export class NewTaskDialogComponent {
 
   defaultLogo = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Icon_Notes.svg/640px-Icon_Notes.svg.png"
-  constructor(private auth: AuthenticationService, private taskService: TaskService, private dialogRef: MatDialogRef<TaskGridComponent>, private datePipe: DatePipe) {}
+  constructor(
+    private auth: AuthenticationService,
+    private taskService: TaskService,
+    private locationService: LocationService,
+    private dialogRef: MatDialogRef<TaskGridComponent>,
+    private datePipe: DatePipe,
+    @Inject(MAT_DIALOG_DATA) public loadedTask: Task
+  ) { }
 
 
   submitForm = new FormGroup({
@@ -26,12 +36,35 @@ export class NewTaskDialogComponent {
     timeForm: new FormControl('', [Validators.pattern(/^-?\d*(\.\d+)?$/)]),
     imageForm: new FormControl(''), //,[Validators.required, Validators.pattern(/^(http(s?):\/\/).+(\.(jpeg|jpg|png|gif|bmp))$/i)]
     dueDateForm: new FormControl<Date | null>(null),
-    descriptionForm: new FormControl('')
-
+    descriptionForm: new FormControl(''),
+    locationForm: new FormControl('')
   })
 
-  
   numOfPictures: number = 0; 
+  locationOptions: Location[] = [];
+  selectedLocation: number | undefined;
+  filteredOptions: Observable<Location[]> | undefined;
+  //locationForm= new FormControl('')
+  ngOnInit() {
+    this.initOptions()
+    this.filteredOptions = this.locationForm?.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value || '')),
+    );
+  }
+
+  initOptions() {
+    this.locationService.getLocations().subscribe((resp) => {
+      this.locationOptions = resp
+      this.locationForm?.reset()
+    });
+  }
+
+  private _filter(value: string): Location[] {
+    const filterValue = value.toLowerCase();
+    return this.locationOptions.filter(options => options.display_name.toLowerCase().includes(filterValue));
+  }
+
 
   submit() {
     if (this.submitForm.valid) {
@@ -44,7 +77,7 @@ export class NewTaskDialogComponent {
         assignee_id: null, 
         due_date: this.datePipe.transform(this.dueDateForm?.value, 'yyyy-MM-dd'), 
         time_target: this.timeForm?.value, 
-        location_id: 1, //TODO 
+        location_id: this.selectedLocation,
         logo: this.isUrlValid(this.imageForm?.value) ? this.imageForm?.value : this.defaultLogo, 
         image_available: false, 
         image_number: this.numOfPictures, 
@@ -104,6 +137,10 @@ export class NewTaskDialogComponent {
 
   get dueDateForm() {
     return this.submitForm.get('dueDateForm');
+  }
+
+  get locationForm() {
+    return this.submitForm.get('locationForm');
   }
 
 }

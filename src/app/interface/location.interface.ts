@@ -1,9 +1,9 @@
 export interface Location {
-    display_name: string
+    id:number,
+    display_name: string,
     address: string,
     latitude: number,
     longitude: number,
     radius: number
 
 }
-

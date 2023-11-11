@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+import { Location } from '../interface/location.interface';
 
 @Injectable({
   providedIn: 'root'

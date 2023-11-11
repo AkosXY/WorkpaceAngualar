@@ -23,7 +23,7 @@
 
             <mat-form-field>
                 <mat-label>address</mat-label>
-                <input matInput placeholder="enter address" formControlName="addressForm" type="text" readonly="true">
+                <input matInput placeholder="enter address" formControlName="addressForm" type="text">
                 <mat-icon matSuffix>house</mat-icon>
                 <mat-error *ngIf="addressForm?.errors?.['required']">
                     address required
@@ -39,7 +39,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>longitude</mat-label>
-                <input matInput placeholder="select longitude on map" formControlName="longitudeForm" type="text">
+                <input matInput placeholder="select longitude on map" formControlName="longitudeForm" type="text" readonly="true">
                 <mat-icon matSuffix>location_pin</mat-icon>
                 <mat-error *ngIf="longitudeForm?.errors?.['required']">
                     longitude required
