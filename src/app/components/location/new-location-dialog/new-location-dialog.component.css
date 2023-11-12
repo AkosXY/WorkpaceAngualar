@@ -16,6 +16,16 @@
     padding: 10px;
 }
 
+.form-subsection mat-form-field {
+    width: 300px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .button-container{
     display: flex;
     flex-direction: row;

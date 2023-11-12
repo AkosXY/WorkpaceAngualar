@@ -1,9 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatDialogRef } from "@angular/material/dialog";
 import { LocationService } from "src/app/serivces/location.service";
 import { LocationComponent } from "../location.component";
-
+import { GoogleMap } from "@angular/google-maps";
 
 
 @Component({
@@ -12,11 +12,15 @@ import { LocationComponent } from "../location.component";
   styleUrls: ['./new-location-dialog.component.css'],
 
 })
+
 export class NewLocationDialogComponent {
-  constructor(private locationService: LocationService, private dialogRef: MatDialogRef<LocationComponent>) { 
-   /*  this.submitForm.get('latitudeForm')?.readonly();
-    this.submitForm.get('longitudeForm')?.readonly(); */
-  }
+  autocomplete: google.maps.places.Autocomplete | undefined;
+
+  @ViewChild('map')
+  map!: GoogleMap;//TODO center
+
+
+  constructor(private locationService: LocationService, private dialogRef: MatDialogRef<LocationComponent>) {}
 
   submitForm = new FormGroup({
     nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -27,31 +31,51 @@ export class NewLocationDialogComponent {
   })
 
   searchOptions: any = {
-    componentRestrictions: { country: 'IN' }
-  }  
+    componentRestrictions: { country: 'EN' }
+  }
 
   options: google.maps.MapOptions = {
-    center: {lat: 47.4923, lng: 19.0433},
+    center: { lat: 47.4923, lng: 19.0433 },
     zoom: 11
   };
 
-  markerOptions: google.maps.MarkerOptions = {draggable: true};
-  selection = {lat: 47.4923, lng: 19.0433}
+  markerOptions: google.maps.MarkerOptions = { draggable: true };
+  selection = { lat: 47.4923, lng: 19.0433 }
   selected = false;
 
 
   addMarker(event: google.maps.MapMouseEvent) {
-    if(this.selection){
-      this.selection.lat = event.latLng?.toJSON().lat ? event.latLng?.toJSON().lat : this.selection.lat;
-      this.selection.lng = event.latLng?.toJSON().lng ? event.latLng?.toJSON().lng : this.selection.lng;
-      this.selected = true
-      this.latitudeForm?.setValue(this.selection.lat.toString())
-      this.longitudeForm?.setValue(this.selection.lng.toString())
-      console.log(this.selection)
-    }
+    this.selection.lat = event.latLng?.toJSON().lat ? event.latLng?.toJSON().lat : this.selection.lat;
+    this.selection.lng = event.latLng?.toJSON().lng ? event.latLng?.toJSON().lng : this.selection.lng;
+    this.selected = true
+    this.latitudeForm?.setValue(this.selection.lat.toString())
+    this.longitudeForm?.setValue(this.selection.lng.toString())
+    this.addressForm?.setValue('')
+    console.log(this.selection)
   }
-  onDragend(event:any){
+
+  onDragend(event: any) {
     this.addMarker(event);
+  }
+
+  onPlaceChanged(event: any) {
+    console.log(event)
+    this.submitForm.patchValue({
+      addressForm: event.address,
+      latitudeForm: event.lat,
+      longitudeForm: event.lng,
+    })
+
+    console.log(this.selection)
+
+    this.selection.lat = event.lat;
+    this.selection.lng = event.lng;
+    this.selected = true
+    this.options.center = event
+    this.map.center = event //TODO center
+
+    console.log(this.selection)
+
   }
 
   submit() {

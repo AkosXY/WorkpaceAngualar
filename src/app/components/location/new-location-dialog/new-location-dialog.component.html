@@ -6,9 +6,12 @@
             <mat-icon>close</mat-icon>
         </button>
     </div>
-
     <form class="form" [formGroup]="submitForm">
         <div class="form-subsection">
+            <div>
+                <app-autocomplete-place (placeChanged)="onPlaceChanged($event)"></app-autocomplete-place>
+                <br>
+            </div>
             <mat-form-field>
                 <mat-label>display name</mat-label>
                 <input matInput placeholder="enter location name" formControlName="nameForm" type="text">
@@ -49,7 +52,7 @@
         </div>
         <div class="form-subsection">
 
-            <google-map [options]="options" (mapClick)="addMarker($event)" >
+            <google-map id="map" #map [options]="options" (mapClick)="addMarker($event)" >
                 <map-marker *ngIf="selected"
                     [position]="{ lat: selection.lat, lng: selection.lng }"
                     [options]="markerOptions"

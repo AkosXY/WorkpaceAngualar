@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
 import { NewLocationDialogComponent } from './new-location-dialog/new-location-dialog.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { AutocompletePlaceComponent } from './autocomplete-place/autocomplete-place.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     LocationComponent,
-    NewLocationDialogComponent
+    NewLocationDialogComponent,
+    AutocompletePlaceComponent
   ],
   imports: [
     CommonModule,
