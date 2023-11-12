@@ -5,7 +5,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { WorkersComponent } from './workers.component';
 import { SharedMaterialModule } from 'src/app/shared/shared.material.module';
 import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.component';
-import { DeleteWorkerDialogComponent } from './delete-worker-dialog/delete-worker-dialog.component';
 import { FormsModule } from '@angular/forms';
 
 
@@ -20,8 +19,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     WorkersComponent,
-    NewWorkerDialogComponent,
-    DeleteWorkerDialogComponent
+    NewWorkerDialogComponent
   ],
   imports: [
     CommonModule,

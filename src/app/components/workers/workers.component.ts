@@ -7,8 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NewWorkerDialogComponent } from './new-worker-dialog/new-worker-dialog.component';
-import { DeleteWorkerDialogComponent } from './delete-worker-dialog/delete-worker-dialog.component';
 import {CookieService} from 'ngx-cookie-service';
+import { ComfirmDialogComponent } from '../dialog/comfirm-dialog/comfirm-dialog.component';
 
 @Component({
   selector: 'app-workers',
@@ -67,10 +67,6 @@ export class WorkersComponent {
   }
 
   onCreate() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "fit-content";
     const dialogRef = this.dialog.open(NewWorkerDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
@@ -86,10 +82,9 @@ export class WorkersComponent {
   }
 
   deleteWorker(worker: Worker) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(DeleteWorkerDialogComponent);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      data: 'Are you sure you want to delete this worker?'
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'comfirmed') {
         this.workerService.deleteWorker(worker.id).subscribe((succes) => {

@@ -7,10 +7,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Task, TaskState } from 'src/app/interface/task.interface';
 import { TaskService } from 'src/app/serivces/task.service';
 import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.component';
-import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
-import { UnAssignTaskDialogComponent } from './unassign-task-dialog/unassign-task-dialog.component';
 import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
+import { ComfirmDialogComponent } from '../dialog/comfirm-dialog/comfirm-dialog.component';
 
 @Component({
   selector: 'app-task-grid',
@@ -85,10 +84,6 @@ export class TaskGridComponent {
   }
 
   createNewTask() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = "fit-content";
     const dialogRef = this.dialog.open(NewTaskDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'refresh') {
@@ -115,26 +110,26 @@ export class TaskGridComponent {
   }
 
   deleteTask(task: Task) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(DeleteTaskDialogComponent);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      data: 'Are you sure you want to delete this task?'
+    });
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'comfirmed') {
-        this.taskService.deleteTask(task.id).subscribe((succes) => {
-          if (succes) {
+        this.taskService.deleteTask(task.id).subscribe((success) => {
+          if (success) {
             this.fetchData();
           }
-        })
+        });
       }
     });
   }
 
+
   unassignTask(task: Task) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(UnAssignTaskDialogComponent);
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      data: 'Are you sure you want to unassign this task?'
+    });
     dialogRef.afterClosed().subscribe((result) => {
       if (result === 'comfirmed') {
         this.taskService.unassignTask(task.id).subscribe((success) => {
@@ -147,9 +142,6 @@ export class TaskGridComponent {
   }
 
   assignWorker(task: Task) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
     const dialogRef = this.dialog.open(AssignTaskDialogComponent);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
@@ -163,10 +155,6 @@ export class TaskGridComponent {
   }
 
   review(task: Task) {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-
     const dialogRef = this.dialog.open(ReviewTaskDialogComponent, {
       data: task
     });
