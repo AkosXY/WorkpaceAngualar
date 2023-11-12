@@ -1,106 +1,103 @@
 <div class="container">
 
-    <div class="button-close" >
+    <div class="button-close">
         <h1>Add details:</h1>
         <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
             <mat-icon>close</mat-icon>
         </button>
     </div>
 
-    <form class="form" [formGroup]="submitForm">
-        <div class="form-subsection">
-            <mat-form-field>
-                <mat-label>name</mat-label>
-                <input matInput placeholder="enter task name" formControlName="nameForm" type="text">
-                <mat-icon matSuffix>cases</mat-icon>
-                <mat-error *ngIf="nameForm?.errors?.['required']">
-                    name required
-                </mat-error>
-                <mat-error *ngIf="nameForm?.errors?.['minlength']">
-                    name must be at least 5 characters long
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field>
-                <mat-label>Location</mat-label>
-                <input type="text"
-                        placeholder="select location"
-                        aria-label="Number"
-                        matInput
-                        formControlName="locationForm"
-                        [matAutocomplete]="auto">
-                <mat-autocomplete requireSelection  #auto="matAutocomplete">
-                <mat-option *ngFor="let location of filteredOptions | async" [value]="location.display_name" (onSelectionChange)="selectedLocation = location.id">
-                    {{location.display_name}}
-                </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+    <form [formGroup]="submitForm">
+        <div class="form">
+            <div class="form-subsection">
+                <mat-form-field>
+                    <mat-label>name</mat-label>
+                    <input matInput placeholder="enter task name" formControlName="nameForm" type="text">
+                    <mat-icon matSuffix>cases</mat-icon>
+                    <mat-error *ngIf="nameForm?.errors?.['required']">
+                        name required
+                    </mat-error>
+                    <mat-error *ngIf="nameForm?.errors?.['minlength']">
+                        name must be at least 5 characters long
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Location</mat-label>
+                    <input type="text" placeholder="select location" aria-label="Number" matInput
+                        formControlName="locationForm" [matAutocomplete]="auto">
+                    <mat-autocomplete requireSelection #auto="matAutocomplete">
+                        <mat-option *ngFor="let location of filteredOptions | async" [value]="location.display_name"
+                            (onSelectionChange)="selectedLocation = location.id">
+                            {{location.display_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>comment</mat-label>
+                    <input matInput placeholder="short message" formControlName="commentForm" type="text">
+                    <mat-icon matSuffix>comment</mat-icon>
+                    <mat-error *ngIf="commentForm?.errors?.['required']">
+                        comment required
+                    </mat-error>
+                    <mat-error *ngIf="commentForm?.errors?.['minlength']">
+                        comment must be at least 5 characters long
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="bottom-field">
+                    <mat-label>time in minutes</mat-label>
+                    <input matInput placeholder="enter estimated time" formControlName="timeForm" type="text">
+                    <mat-icon matSuffix>access_time_filled</mat-icon>
+                    <mat-error *ngIf="timeForm?.errors?.['required']">
+                        time estimation required
+                    </mat-error>
+                    <mat-error *ngIf="timeForm?.errors?.['pattern']">
+                        must be a valid number or empty
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>due date</mat-label>
+                    <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" weekStartsOn="1"
+                    placeholder="choose a due date" formControlName="dueDateForm">
+                    <mat-hint>MM/DD/YYYY"</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>comment</mat-label>
-                <input matInput placeholder="short task description" formControlName="commentForm" type="text">
-                <mat-icon matSuffix>comment</mat-icon>
-                <mat-error *ngIf="commentForm?.errors?.['required']">
-                    comment required
-                </mat-error>
-                <mat-error *ngIf="commentForm?.errors?.['minlength']">
-                    comment must be at least 5 characters long
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="bottom-field">
-                <mat-label>time in minutes</mat-label>
-                <input matInput placeholder="enter estimated time" formControlName="timeForm" type="text">
-                <mat-icon matSuffix>access_time_filled</mat-icon>
-                <mat-error *ngIf="timeForm?.errors?.['required']">
-                    time estimation required
-                </mat-error>
-                <mat-error *ngIf="timeForm?.errors?.['pattern']">
-                    must be a valid number or empty
-                </mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Choose a due date</mat-label>
-                <input matInput [matDatepicker]="picker" datePickerFormat="YYYY/MM/DD" formControlName="dueDateForm">
-                <mat-hint>YYYY/MM/DD"</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field class="description-form" subscriptSizing="dynamic">
-                <mat-label>Add description for task</mat-label>
-                <textarea matInput placeholder="Description" formControlName="descriptionForm"></textarea>
-            </mat-form-field>
-
-
-        </div>
-
-        <div class="form-subsection">
-            <mat-card class="logo-card mat-elevation-z8">
-                <mat-card-header>
-                    <p class="logo-text">logo preview:</p>
-                </mat-card-header>
-                <mat-card-content ><!-- *ngIf="imageForm?.value && isUrlValid(imageForm?.value?.trim())" -->
-                    <img [src]="isUrlValid(imageForm?.value?.trim())? imageForm?.value:defaultLogo" class="logo-preview">
-                </mat-card-content>
-            </mat-card>
-            <mat-form-field>
-                <mat-label>custom logo</mat-label>
-                <input matInput placeholder="image url" formControlName="imageForm" type="text">
-                <mat-icon matSuffix>image</mat-icon>
-            </mat-form-field>
-            <div class="label-container">
-                <label >Number of pictures required:</label>
-                <label >{{numOfPictures}}</label>
             </div>
-            <mat-slider
-                [max]="6"
-                [min]="0"
-                [step]="1"         
-                >
-            <input matSliderThumb [(ngModel)]="numOfPictures" [ngModelOptions]="{standalone: true}">
-            </mat-slider>
-  
+
+            <div class="form-subsection">
+                <mat-card class="logo-card mat-elevation-z8">
+                    <mat-card-header>
+                        <p class="logo-text">logo preview:</p>
+                    </mat-card-header>
+                    <mat-card-content><!-- *ngIf="imageForm?.value && isUrlValid(imageForm?.value?.trim())" -->
+                        <img [src]="isUrlValid(imageForm?.value?.trim())? imageForm?.value:defaultLogo"
+                            class="logo-preview">
+                    </mat-card-content>
+                </mat-card>
+                <mat-form-field>
+                    <mat-label>custom logo</mat-label>
+                    <input matInput placeholder="image url" formControlName="imageForm" type="text">
+                    <mat-icon matSuffix>image</mat-icon>
+                </mat-form-field>
+                <div class="label-container">
+                    <label>number of pictures required:</label>
+                    <label>{{numOfPictures}}</label>
+                </div>
+                <mat-slider class="slider" [max]="6" [min]="0" [step]="1">
+                    <input matSliderThumb [(ngModel)]="numOfPictures" [ngModelOptions]="{standalone: true}">
+                </mat-slider>
+
+            </div>
+        </div>
+        <div class="description-container">
+            <mat-form-field class="description-form" subscriptSizing="dynamic">
+                <mat-label>description</mat-label>
+                <textarea matInput placeholder="Add description for task" formControlName="descriptionForm"></textarea>
+            </mat-form-field>
         </div>
     </form>
+
     <div class="button-container">
         <button mat-raised-button color="primary" type="submit" (click)="submit()">Save</button>
     </div>
