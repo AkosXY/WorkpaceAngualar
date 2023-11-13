@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { LocationService } from 'src/app/serivces/location.service';
 import { Location } from 'src/app/interface/location.interface';
 import { NewLocationDialogComponent } from './new-location-dialog/new-location-dialog.component';
+import { ComfirmDialogComponent } from '../dialog/comfirm-dialog/comfirm-dialog.component';
 
 @Component({
   selector: 'location',
@@ -61,6 +62,18 @@ export class LocationComponent {
   }
 
   deleteLocation(location: Location){
+    const dialogRef = this.dialog.open(ComfirmDialogComponent, {
+      data: 'Are you sure you want to delete this location?'
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === 'comfirmed') {
+        this.locationService.deleteLocation(location.id).subscribe((succes) => {
+          if (succes) {
+            this.fetchLocationList();
+          }
+        })
+      }
+    });
 
   }
 

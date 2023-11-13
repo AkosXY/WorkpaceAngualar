@@ -15,6 +15,7 @@ export class LocationService {
   private static getLocations = "/getLocations";
   private static getLocation = "/getLocation";
   private static saveLocation = "/saveLocation";
+  private static deleteLocation = "/deleteLocation";
 
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
@@ -24,7 +25,7 @@ export class LocationService {
       { headers: this.auth.getAuthHeader() })
 
   }
-  
+
   getLocation(locationId: number): Observable<Location> {
     const url = LocationService.baseUrl + LocationService.getLocation + `?locationId=${locationId}`
     return this.httpClient.get<Location>(url,
@@ -36,6 +37,18 @@ export class LocationService {
     const url = LocationService.adminUrl + LocationService.saveLocation
     return this.httpClient.post(url, location, {
       headers: this.auth.getAuthHeader(),
+      observe: "response"
+    }).pipe(
+      map(resp => resp.status === 200)
+    )
+  }
+
+  deleteLocation(id: number): Observable<boolean> {
+    let url = LocationService.adminUrl + LocationService.deleteLocation
+    const requestBody = { location_id: id }
+    return this.httpClient.delete(url, {
+      headers: this.auth.getAuthHeader(),
+      body: requestBody,
       observe: "response"
     }).pipe(
       map(resp => resp.status === 200)
