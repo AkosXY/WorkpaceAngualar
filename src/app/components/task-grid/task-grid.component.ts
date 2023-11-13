@@ -10,6 +10,7 @@ import { NewTaskDialogComponent } from './new-task-dialog/new-task-dialog.compon
 import { AssignTaskDialogComponent } from './assign-task-dialog/assign-task-dialog.component';
 import { ReviewTaskDialogComponent } from './review-task-dialog/review-task-dialog.component';
 import { ComfirmDialogComponent } from '../dialog/comfirm-dialog/comfirm-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-grid',
@@ -39,14 +40,18 @@ export class TaskGridComponent {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private taskService: TaskService, private dialog: MatDialog) {
+  constructor(private taskService: TaskService, private dialog: MatDialog, private router: Router) {
+    const currentUrl = this.router.url;
+    this.isPendingTasksPage = currentUrl.endsWith('/pending-tasks');
     this.initTable()
     //this.dataSource = this.CONST_DATA
   }
 
+  isPendingTasksPage = false
+
   initTable() {
     this.taskService.getMyTasks().subscribe((resp) => {
-      this.taskList = resp.tasks
+      this.taskList = this.filterTaskList(resp.tasks)
       console.log(this.taskList)
       this.dataSource = new MatTableDataSource<Task>(this.taskList);
       this.dataSource.paginator = this.paginator;
@@ -61,7 +66,7 @@ export class TaskGridComponent {
 
   fetchMyTaskList() {
     this.taskService.getMyTasks().subscribe((resp) => {
-      this.taskList = resp.tasks
+      this.taskList = this.filterTaskList(resp.tasks)
       this.dataSource.data = this.taskList
     });
   }
@@ -74,6 +79,14 @@ export class TaskGridComponent {
     });
   }
 
+  filterTaskList(taskList: Task[]): Task[] {
+    if (this.isPendingTasksPage) {
+      return taskList.filter(task => ['UNASSIGNED', 'DONE', 'APPROVED'].includes(task.state));
+    } else {
+      return taskList;
+    }
+  }
+  
   handleButtonContainerClick(event: Event): void {
     event.stopPropagation();
   }
