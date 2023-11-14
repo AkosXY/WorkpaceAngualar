@@ -26,6 +26,16 @@ export class TaskService {
   constructor(private httpClient: HttpClient, private auth: AuthenticationService) { }
 
 
+  getCurrentDate() {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
+  }
+
+
   getMyTasks(pageSize: number = 1000, skip: number = 0): Observable<TaskResponse> {
     const url = TaskService.baseUrl + TaskService.getMyTasks + `?pageSize=${pageSize}&skip=${skip}`;
     return this.httpClient.get<TaskResponse>(url, {

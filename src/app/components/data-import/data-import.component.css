@@ -1,0 +1,11 @@
+.input-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 100px;
+    padding-bottom: 60px;
+}
+
+table {
+    width: 100%;
+  }

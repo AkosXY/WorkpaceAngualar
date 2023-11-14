@@ -153,7 +153,7 @@ export class NewTaskDialogComponent {
       image_number: this.numOfPictures,
       time_started: null,
       time_finished: null,
-      creation_dttm: this.getCurrentDate()
+      creation_dttm: this.taskService.getCurrentDate()
     }
 
     this.taskService.createTask(task).subscribe((success) => {
@@ -162,15 +162,6 @@ export class NewTaskDialogComponent {
       }
     });
 
-  }
-
-  getCurrentDate() {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = (today.getMonth() + 1).toString().padStart(2, '0');
-    const day = today.getDate().toString().padStart(2, '0');
-
-    return `${year}-${month}-${day}`;
   }
 
   isUrlValid(url: any) {
