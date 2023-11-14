@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HomeComponent } from './components/home/home.component';
 import { SharedMaterialModule } from './shared/shared.material.module';
 import { ComfirmDialogComponent } from './components/dialog/comfirm-dialog/comfirm-dialog.component';
+import { MessageDialogComponent } from './components/dialog/message-dialog/message-dialog.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ComfirmDialogComponent } from './components/dialog/comfirm-dialog/comfi
     AppComponent,
     ToolbarComponent,
     HomeComponent,
-    ComfirmDialogComponent
+    ComfirmDialogComponent,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,

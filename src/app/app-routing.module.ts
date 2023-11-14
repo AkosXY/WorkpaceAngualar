@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'import', loadChildren: () => import("./components/data-import/data-import.module").then(m => m.DataImportModule) },
   { path: 'location', loadChildren: () => import("./components/location/location.module").then(m => m.LocationModule) },
   { path: 'analytics', loadChildren: () => import("./components/analytics/analytics.module").then(m => m.AnalyticsModule) },
-  { path: 'profile', loadChildren: () => import("./components/profile/profile.module").then(m => m.ProfileModule) }
+  { path: 'profile', loadChildren: () => import("./components/profile/profile.module").then(m => m.ProfileModule) },
+  { path: 'feedback', loadChildren: () => import("./components/feedback/feedback.module").then(m => m.FeedbackModule) }
 
 ];
 

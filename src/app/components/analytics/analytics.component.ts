@@ -18,15 +18,6 @@ export class AnalyticsComponent implements OnInit {
   barChartPending: any;
   pieChart: any;
 
-  // Data from your API response
-  /*   chartData = {
-      "all_tasks": 50,
-      "all_done": 35,
-      "in_time_done": 25,
-      "in_time_undone": 10,
-      "overdue_done": 10,
-      "overdue_undone": 5
-    }; */
   chartData = {
     "all_tasks": 0,
     "all_done": 0,
@@ -51,12 +42,10 @@ export class AnalyticsComponent implements OnInit {
   userDisplayTitle = 'Displaying analitics for user: '
   displayTitle = this.generalDisplayTitle
 
-
   constructor(private chartService: ChartService, private workerService: WorkerService, private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.initOptions()
-
     this.initChart();
   }
 
@@ -76,8 +65,6 @@ export class AnalyticsComponent implements OnInit {
     const filterValue = value.toLowerCase();
     return this.workerOptions.filter(options => options.name.toLowerCase().includes(filterValue));
   }
-
-
 
   initChart() {
 

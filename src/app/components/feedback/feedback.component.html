@@ -1,0 +1,17 @@
+<h1>Share Your Thoughts with Us!</h1>
+<p class="text">We value your feedback. Your insights help us improve and enhance your experience with our app. Please
+    take a moment to share your thoughts with us.</p>
+<div class="main-container">
+    <div class="feedback-container">
+        <form [formGroup]="submitForm">
+            <mat-form-field class="feedback-form" subscriptSizing="dynamic">
+                <mat-label>Feedback</mat-label>
+                <textarea matInput placeholder="Your Feedback Here..." formControlName="feedbackForm"></textarea>
+            </mat-form-field>
+        </form>
+
+        <div class="button-container">
+            <button mat-raised-button color="primary" type="submit" (click)="submit()">Submit Feedback</button>
+        </div>
+    </div>
+</div>
