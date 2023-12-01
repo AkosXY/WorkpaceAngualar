@@ -8,11 +8,20 @@
 
 </mat-dialog-content>
 <mat-dialog-actions class="review-container">
-    <div *ngIf="imageSource && imageSource.length > 0" class="image-container">
-        <div *ngFor="let image of imageSource">
+    <div *ngIf="!loadingImage && imageSource && imageSource.length > 0; else loadingSpinner" class="image-container">
+        <button *ngIf="imageSource.length > pageStep" mat-mini-fab color="primary" (click)="previousImages()" [disabled]="previousDisabled()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <div *ngFor="let image of displayedImages">
             <img [src]="displayImage(image)" class="image" alt="Image Source">
         </div>
+        <button *ngIf="imageSource.length > pageStep" mat-mini-fab color="primary" (click)="nextImages()" [disabled]="nextDisabled()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
     </div>
+    <ng-template #loadingSpinner>
+        <mat-spinner></mat-spinner>
+    </ng-template>
 
     <div class="action-container">
         <mat-form-field class="comment-section" subscriptSizing="dynamic">

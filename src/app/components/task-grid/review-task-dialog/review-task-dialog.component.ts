@@ -15,7 +15,11 @@ import { Image } from "src/app/interface/image.interface";
 export class ReviewTaskDialogComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: Task, private dialogRef: MatDialogRef<TaskGridComponent>, private taskService: TaskService, private sanitizer: DomSanitizer) { }
 
-  imageSource: Image[] = [];
+  imageSource: Image[] = []
+  currentIndex: number = 0
+  pageStep = 4
+  displayedImages: Image[] = []
+  loadingImage = true
 
   feedbackText: string = ''
 
@@ -26,6 +30,8 @@ export class ReviewTaskDialogComponent {
   loadImages() {
     this.taskService.getImagesForTask(this.data).subscribe((resp) => {
       this.imageSource = resp
+      this.displayedImages = this.imageSource.slice(this.currentIndex, this.currentIndex + this.pageStep);
+      this.loadingImage = false
       console.log(this.imageSource)
     });
   }
@@ -43,6 +49,32 @@ export class ReviewTaskDialogComponent {
       option: 'rejected',
       comment: this.feedbackText
     })
+  }
+
+  previousImages() {
+    if (this.currentIndex > 0) {
+      this.currentIndex -= this.pageStep;
+      this.updateDisplayedImages();
+    }
+  }
+
+  nextImages() {
+    if (this.currentIndex + this.pageStep < this.imageSource.length) {
+      this.currentIndex += this.pageStep;
+      this.updateDisplayedImages();
+    }
+  }
+  updateDisplayedImages() {
+    this.displayedImages = this.imageSource.slice(this.currentIndex, this.currentIndex + this.pageStep);
+  }
+
+
+  previousDisabled() {
+    return this.currentIndex === 0;
+  }
+
+  nextDisabled() {
+    return this.currentIndex + this.pageStep >= this.imageSource.length;
   }
 
 }
