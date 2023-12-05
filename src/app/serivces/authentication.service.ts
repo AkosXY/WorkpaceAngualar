@@ -4,14 +4,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { LoginDialogComponent } from '../components/login/dialog/login.dialog.component';
 import {CookieService} from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { User } from '../interface/user.interface';
+import { NewUser, User } from '../interface/user.interface';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private static loginEndpoint = "https://workpace-api.azurewebsites.net/login";
+  private static loginEndpoint = environment.apiUrl+"login"
+  private apiUrl =  environment.apiUrl;
 
   isAuthenticated = false;
   isAdmin = false;
@@ -32,6 +34,10 @@ export class AuthenticationService {
       complete: () => this.handleRequestComplete()
     });
 
+  }
+
+  register(user: NewUser) {
+    return this.http.post(`${this.apiUrl}/register`, user)
   }
 
   logout() {

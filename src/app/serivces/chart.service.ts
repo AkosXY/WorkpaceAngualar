@@ -2,11 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment.development';
 @Injectable({
   providedIn: 'root'
 })
 export class ChartService {
-  private static baseUrl = "https://workpace-api.azurewebsites.net/admin"
+  private static baseUrl = environment.adminUrl
   private static getGeneralStatistics = "/getGeneralStatistics"
   private static getUserStatistics = "/getGeneralStatistics"
   

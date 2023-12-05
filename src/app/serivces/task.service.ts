@@ -4,14 +4,14 @@ import { Observable, map } from 'rxjs';
 import { AuthenticationService } from './authentication.service';
 import { Task, TaskResponse } from '../interface/task.interface';
 import { Image } from '../interface/image.interface';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  private static baseUrl = "https://workpace-api.azurewebsites.net/admin"
-  //private static baseUrl = "http://localhost:8080/admin"
+  private static baseUrl = environment.adminUrl
   private static getMyTasks = "/getMyTasks"
   private static getAllTasks = "/getAllTasks"
   private static createTask = "/createTask"

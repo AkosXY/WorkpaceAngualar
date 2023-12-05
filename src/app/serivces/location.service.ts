@@ -3,14 +3,15 @@ import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
 import { Location } from '../interface/location.interface';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
 
-  private static baseUrl = "https://workpace-api.azurewebsites.net"
-  private static adminUrl = "https://workpace-api.azurewebsites.net/admin"
+  private static baseUrl = environment.apiUrl
+  private static adminUrl = environment.adminUrl
 
   private static getLocations = "/getLocations";
   private static getLocation = "/getLocation";

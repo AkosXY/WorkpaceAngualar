@@ -4,13 +4,14 @@ import { Worker} from "../interface/worker.interface";
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from './authentication.service';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WorkerService {
 
-  private static baseUrl = "https://workpace-api.azurewebsites.net/admin"
+  private static baseUrl = environment.adminUrl
 
   private static getMyWorkersEndpoint = "/getMyWorkers";
   private static addNewWorker = "/register";
