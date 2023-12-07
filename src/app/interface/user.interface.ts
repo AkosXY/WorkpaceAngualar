@@ -9,7 +9,20 @@ export interface User {
   username: string
 
 }
-  
+
+
+export interface NewUser {
+  username: string,
+  phone: string,
+  email: string,
+  name: string,
+  admin: boolean,
+  enabled: boolean,
+  supervisorId?: number,
+  password: string
+
+}
+
 
 export const NULL_USER: User = {
   admin: false,

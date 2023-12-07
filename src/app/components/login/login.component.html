@@ -32,6 +32,22 @@
                 <mat-card-content>
                     <form class="form" [formGroup]="signupForm" >
                         <mat-form-field>
+                            <mat-label>name</mat-label>
+                            <input matInput placeholder="enter your name" formControlName="newNameForm" type="text">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-error *ngIf="newNameForm?.errors?.['required']">
+                                name required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>username</mat-label>
+                            <input matInput placeholder="enter your username" formControlName="newUserNameForm" type="text">
+                            <mat-icon matSuffix>person_outline</mat-icon>
+                            <mat-error *ngIf="newUserNameForm?.errors?.['required']">
+                                username required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
                             <mat-label>email</mat-label>
                             <input matInput placeholder="enter your email" formControlName="newEmailForm" type="text">
                             <mat-icon matSuffix>email</mat-icon>
@@ -40,6 +56,14 @@
                             </mat-error>
                             <mat-error *ngIf="newEmailForm?.errors?.['required']">
                                 email required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>phone</mat-label>
+                            <input matInput placeholder="enter your phone number" formControlName="newPhoneForm" type="text">
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="newPhoneForm?.errors?.['required']">
+                                phone required
                             </mat-error>
                         </mat-form-field>
                         <mat-form-field>

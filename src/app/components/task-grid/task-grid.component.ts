@@ -81,7 +81,7 @@ export class TaskGridComponent {
 
   filterTaskList(taskList: Task[]): Task[] {
     if (this.isPendingTasksPage) {
-      return taskList.filter(task => ['UNASSIGNED', 'DONE', 'APPROVED'].includes(task.state));
+      return taskList.filter(task => ['UNASSIGNED', 'DONE'].includes(task.state));
     } else {
       return taskList;
     }
@@ -174,7 +174,8 @@ export class TaskGridComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.handleReviewOutcome(task, result);
+        task.comment = result.comment
+        this.handleReviewOutcome(task, result.option);
         console.log(result)
       }
     });
@@ -189,99 +190,6 @@ export class TaskGridComponent {
   }
 
 
-  CONST_DATA = [
-    {
-      id: 2,
-      name: "Meki pakolás234",
-      comment: " A feladatok között szerepel az élelmiszerek és egyéb árucikkek a kamionról való biztonságos lerakodása és az étterem raktárába való elhelyezése.",
-      state: TaskState.ASSIGNED,
-      supervisor_id: 3,
-      assignee_id: "7",
-      due_date: new Date("2023-09-27"),
-      time_target: 10,
-      location_id: 9,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png",
-      image_available: false,
-      image_number: null,
-      time_started: null,
-      time_finished: null,
-      creation_dttm: new Date("2023-09-20"),
-      display_name: "BME I Épület"
-    },
-    {
-      id: 2,
-      name: "Meki pakolás234",
-      comment: " A feladatok között szerepel az élelmiszerek és egyéb árucikkek a kamionról való biztonságos lerakodása és az étterem raktárába való elhelyezése.",
-      state: TaskState.ASSIGNED,
-      supervisor_id: 3,
-      assignee_id: null,
-      due_date: new Date("2023-09-27"),
-      time_target: 10,
-      location_id: 9,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png",
-      image_available: false,
-      image_number: null,
-      time_started: null,
-      time_finished: null,
-      creation_dttm: new Date("2023-09-20"),
-      display_name: "BME I Épület"
-    },
-    {
-      id: 2,
-      name: "Meki pakolás234",
-      comment: " A feladatok között szerepel az élelmiszerek és egyéb árucikkek a kamionról való biztonságos lerakodása és az étterem raktárába való elhelyezése.",
-      state: TaskState.ASSIGNED,
-      supervisor_id: 3,
-      assignee_id: "7",
-      due_date: new Date("2023-09-27"),
-      time_target: 10,
-      location_id: 9,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png",
-      image_available: false,
-      image_number: null,
-      time_started: null,
-      time_finished: null,
-      creation_dttm: new Date("2023-09-20"),
-      display_name: "BME I Épület"
-    },
-    {
-      id: 2,
-      name: "Meki pakolás234",
-      comment: "hahaha",
-      state: TaskState.ASSIGNED,
-      supervisor_id: 3,
-      assignee_id: "7",
-      due_date: new Date("2023-09-27"),
-      time_target: 10,
-      location_id: 9,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png",
-      image_available: false,
-      image_number: null,
-      time_started: null,
-      time_finished: null,
-      creation_dttm: new Date("2023-09-20"),
-      display_name: "BME I Épület"
-    },
-    {
-      id: 2,
-      name: "Meki pakolás234",
-      comment: " A feladatok között szerepel az élelmiszerek és egyéb árucikkek a kamionról való biztonságos lerakodása és az étterem raktárába való elhelyezése.",
-      state: TaskState.ASSIGNED,
-      supervisor_id: 3,
-      assignee_id: "7",
-      due_date: new Date("2023-09-27"),
-      time_target: 10,
-      location_id: 9,
-      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1200px-McDonald%27s_Golden_Arches.svg.png",
-      image_available: false,
-      image_number: null,
-      time_started: null,
-      time_finished: null,
-      creation_dttm: new Date("2023-09-20"),
-      display_name: "BME I Épület"
-    },
-
-  ]
 
 
 }

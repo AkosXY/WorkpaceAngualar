@@ -4,6 +4,8 @@ import { MatDialogRef } from "@angular/material/dialog";
 import { AuthenticationService } from "src/app/serivces/authentication.service";
 import { WorkerService } from "src/app/serivces/worker.service";
 import { WorkersComponent } from "../workers.component";
+import * as bcrypt from 'bcryptjs';
+import { NewUser } from "src/app/interface/user.interface";
 
 @Component({
     selector: 'new-worker-dialog',
@@ -26,22 +28,25 @@ import { WorkersComponent } from "../workers.component";
   submit(){
     if(this.submitForm.valid){
       console.log("submited");
-      const worker = {
-        name: this.nameForm?.value,
-        username: this.usernameForm?.value, 
-        phone: this.phoneForm?.value,
-        email: this.emailForm?.value,
-        enabled: this.enabledForm?.value,
-        admin: this.adminForm?.value,
-        password: this.usernameForm?.value,
-        supervisorId: this.auth.getUserData().id
+      const worker:NewUser = {
+        username: this.usernameForm?.value || '',
+        phone: this.phoneForm?.value || '',
+        email: this.emailForm?.value || '',
+        name: this.nameForm?.value || '',
+        admin: this.adminForm?.value || false,
+        enabled: this.enabledForm?.value || false,
+        supervisorId: this.auth.getUserData().id,
+        password: bcrypt.hashSync(this.usernameForm?.value || ''),
       }
+      console.log(worker)
 
-      this.workerService.postNewWorker(worker).subscribe((success) => {
+      this.auth.register(worker).subscribe((success) => {
+        console.log("succ: "+success)
         if(success){
           this.dialogRef.close('refresh')
         }
-      });
+      })
+
     } 
   }
 

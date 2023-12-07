@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/serivces/authentication.service';
 import { AbstractControl, ValidatorFn, ValidationErrors, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NewUser } from 'src/app/interface/user.interface';
+import * as bcrypt from 'bcryptjs';
 
 export function passwordMatchValidator(confirmControl: AbstractControl): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -36,6 +38,9 @@ export class LoginComponent {
   confirmPasswordForm = new FormControl('', [Validators.required, Validators.minLength(5), passwordMatchValidator(this.newPasswordForm)]);
 
   signupForm = new FormGroup({
+    newNameForm: new FormControl('', [Validators.required]),
+    newPhoneForm: new FormControl('', [Validators.required]),
+    newUserNameForm: new FormControl('', [Validators.required]),
     newEmailForm: new FormControl('', [Validators.email, Validators.required]),
     newPasswordForm: this.newPasswordForm,
     confirmPasswordForm: this.confirmPasswordForm
@@ -51,6 +56,18 @@ export class LoginComponent {
     return this.loginForm.get('passwordForm');
   }
 
+  get newNameForm() {
+    return this.signupForm.get('newNameForm');
+  }
+  
+  get newPhoneForm() {
+    return this.signupForm.get('newPhoneForm');
+  }
+
+  get newUserNameForm() {
+    return this.signupForm.get('newUserNameForm');
+  }
+
   get newEmailForm() {
     return this.signupForm.get('newEmailForm');
   }
@@ -60,7 +77,7 @@ export class LoginComponent {
   }
 
   login() {
-    if (this.loginForm.valid) { //TODO authentication
+    if (this.loginForm.valid) { 
       let username:string = this.usernameForm?.value ? this.usernameForm?.value.toString() : "";
       let password:string = this.passwordForm?.value ? this.passwordForm?.value.toString() : ""
       this.authService.login(username, password)
@@ -68,9 +85,24 @@ export class LoginComponent {
   }
 
   signup() {
-    if (this.signupForm.valid) { //TODO authentication
-      this.router.navigateByUrl('/home');
-      //this.authService.login()
+    if (this.signupForm.valid) { 
+      const newUser: NewUser = {
+        username: this.newUserNameForm?.value || '',
+        phone: this.newPhoneForm?.value || '',
+        email: this.newEmailForm?.value || '',
+        name: this.newNameForm?.value || '',
+        admin: true,
+        enabled: true,
+        password: bcrypt.hashSync(this.newPasswordForm.value || ''),
+      }
+  
+      this.authService.register(newUser).subscribe((success) => {
+        console.log("succ: "+success)
+        if(success){
+          this.router.navigateByUrl('/home');
+        }
+      })
+
     }
   }
 

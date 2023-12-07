@@ -24,7 +24,7 @@ export class NewLocationDialogComponent {
 
   submitForm = new FormGroup({
     nameForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    addressForm: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    addressForm: new FormControl('', [Validators.required]),
     latitudeForm: new FormControl('', [Validators.required]),
     longitudeForm: new FormControl('', [Validators.required]),
     radiusForm: new FormControl(60)

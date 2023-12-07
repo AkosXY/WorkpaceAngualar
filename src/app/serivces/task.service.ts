@@ -133,6 +133,7 @@ export class TaskService {
       task_id: task.id,
       comment: task.comment
     }
+    console.log(body)
     return this.httpClient.patch(url, body, {
       headers: this.auth.getAuthHeader(),
       observe: "response"

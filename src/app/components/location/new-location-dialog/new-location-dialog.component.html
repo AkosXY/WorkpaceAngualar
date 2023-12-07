@@ -48,6 +48,14 @@
                     longitude required
                 </mat-error>
             </mat-form-field>
+            <mat-form-field>
+                <mat-label>radius</mat-label>
+                <input matInput placeholder="select radius" formControlName="radiusForm" type="text">
+                <mat-icon matSuffix>radar</mat-icon>
+                <mat-error *ngIf="radiusForm?.errors?.['required']">
+                    radius required
+                </mat-error>
+            </mat-form-field>
           
         </div>
         <div class="form-subsection">

@@ -6,13 +6,14 @@ import {CookieService} from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { NewUser, User } from '../interface/user.interface';
 import { environment } from 'src/environments/environment.development';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private static loginEndpoint = environment.apiUrl+"login"
+  private static loginEndpoint = environment.apiUrl+"/login"
   private apiUrl =  environment.apiUrl;
 
   isAuthenticated = false;
@@ -37,7 +38,11 @@ export class AuthenticationService {
   }
 
   register(user: NewUser) {
-    return this.http.post(`${this.apiUrl}/register`, user)
+    return this.http.post(`${this.apiUrl}/register`, user, {
+      observe:"response"
+    }).pipe(
+      map(resp => resp.status === 200)
+  )
   }
 
   logout() {

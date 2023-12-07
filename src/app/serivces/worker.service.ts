@@ -14,7 +14,6 @@ export class WorkerService {
   private static baseUrl = environment.adminUrl
 
   private static getMyWorkersEndpoint = "/getMyWorkers";
-  private static addNewWorker = "/register";
   private static enableWorker = "/enableUser";
   private static deleteWorker = "/deleteUser?userId=";
 
@@ -25,16 +24,6 @@ export class WorkerService {
     return this.httpClient.get<Worker[]>(url, 
       {headers:this.auth.getAuthHeader()})
     
-  }
-
-  postNewWorker(worker: any):Observable<boolean>{
-    const url = WorkerService.baseUrl + WorkerService.addNewWorker
-    return this.httpClient.post(url, worker, {
-        headers:this.auth.getAuthHeader(), 
-        observe:"response"
-      }).pipe(
-        map(resp => resp.status === 200)
-    )
   }
 
   enableWorker(worker: any):Observable<boolean>{
