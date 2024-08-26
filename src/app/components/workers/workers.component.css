@@ -1,0 +1,41 @@
+
+
+.header-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.disabled-row{
+   /*  color: lightcoral; */
+   color: rgb(150, 150, 150);
+}
+
+.email-link{
+    text-decoration: none;
+    /* color: rgb(82, 142, 202); */
+    color: #339388;
+    
+}
+
+.disabled-link{
+    text-decoration: none;
+    color: rgb(150, 150, 150);
+}
+
+.inactive-filter{
+    padding-left: 30px;
+}
+
+
+.mat-mdc-slide-toggle.mat-primary {
+    --mdc-switch-selected-handle-color: #339388;
+    --mdc-switch-selected-track-color: #33938885;
+    --mdc-switch-selected-focus-track-color:#33938885;
+    --mdc-switch-selected-pressed-track-color: #33938885;
+
+    --mdc-switch-selected-hover-handle-color: #00544a;
+    --mdc-switch-selected-hover-track-color: #5e9c95;
+    --mdc-switch-selected-pressed-handle-color: #006064;
+    --mdc-switch-selected-focus-track-color: #339388;
+}

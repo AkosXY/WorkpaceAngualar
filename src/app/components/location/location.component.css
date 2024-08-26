@@ -1,0 +1,17 @@
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button-spacing {
+    margin-right: 25px;
+}
+
+.action-container {
+    text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: right;
+}

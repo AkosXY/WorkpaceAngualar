@@ -1,0 +1,72 @@
+.button-close{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+    height: 25px;
+    padding-top: 20px;
+}
+
+.button-close h1{
+    margin: 0;
+    color: black;
+}
+
+.review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+button {
+    margin: 10px;
+}
+
+.dialog-content {
+    min-height: 100px;
+    height: fit-content;
+}
+
+.image-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.action-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: -webkit-fill-available;
+}
+
+
+.mat-mdc-raised-button.approve-button {
+    background-color: rgb(40, 167, 69);
+    color: white;
+}
+
+.image {
+    padding-right: 10px;
+    padding-left: 10px;
+    max-width: 260px;
+    max-height: 320px;
+}
+
+.comment-section{
+    width: 450px;
+    padding-left: 10px;
+    padding-right: 60px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}

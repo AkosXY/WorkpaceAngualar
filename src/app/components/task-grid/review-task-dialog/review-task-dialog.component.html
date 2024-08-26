@@ -1,0 +1,38 @@
+<mat-dialog-content class="dialog-content">
+    <div class="button-close">
+        <h1>Start review process:</h1>
+        <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions class="review-container">
+    <div *ngIf="!loadingImage && imageSource && imageSource.length > 0; else loadingSpinner" class="image-container">
+        <button *ngIf="imageSource.length > pageStep" mat-mini-fab color="primary" (click)="previousImages()" [disabled]="previousDisabled()">
+            <mat-icon>keyboard_arrow_left</mat-icon>
+        </button>
+        <div *ngFor="let image of displayedImages">
+            <img [src]="displayImage(image)" class="image" alt="Image Source">
+        </div>
+        <button *ngIf="imageSource.length > pageStep" mat-mini-fab color="primary" (click)="nextImages()" [disabled]="nextDisabled()">
+            <mat-icon>keyboard_arrow_right</mat-icon>
+        </button>
+    </div>
+    <ng-template #loadingSpinner>
+        <mat-spinner></mat-spinner>
+    </ng-template>
+
+    <div class="action-container">
+        <mat-form-field class="comment-section" subscriptSizing="dynamic">
+            <mat-label>Add feedback in case of rejection</mat-label>
+            <textarea matInput placeholder="Feedback" [(ngModel)]="feedbackText"></textarea>
+        </mat-form-field>
+        <div class="button-container">
+            <button mat-raised-button class="approve-button" (click)="approve()">Approve</button>
+            <button mat-raised-button color="warn" (click)="reject()">Reject</button>
+            <button mat-raised-button color="none" matDialogClose>Cancel</button>
+        </div>
+    </div>
+
+</mat-dialog-actions>

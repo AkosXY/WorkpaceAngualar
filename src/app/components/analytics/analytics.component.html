@@ -1,0 +1,74 @@
+<div>
+  <form class="from-container" action="" [formGroup]="submitForm">
+    <mat-form-field>
+      <mat-label>start date</mat-label>
+      <input matInput [matDatepicker]="picker1" datePickerFormat="YYYY/MM/DD" weekStartsOn="1"
+      placeholder="choose a start date" formControlName="startDateForm">
+      <mat-hint>MM/DD/YYYY"</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>end date</mat-label>
+      <input matInput [matDatepicker]="picker2" datePickerFormat="YYYY/MM/DD" weekStartsOn="1"
+      placeholder="choose a end date" formControlName="endDateForm">
+      <mat-hint>MM/DD/YYYY"</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Worker (optional)</mat-label>
+      <input type="text" placeholder="select worker" aria-label="Number" matInput
+          formControlName="workerForm" [matAutocomplete]="auto">
+      <mat-autocomplete requireSelection #auto="matAutocomplete">
+          <mat-option *ngFor="let worker of filteredOptions | async" [value]="worker.username"
+              (onSelectionChange)="selectedWorker = worker.id">
+              {{worker.username}}
+          </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <div>
+      <button mat-raised-button color="primary" type="submit" (click)="submit()">Save</button>
+    </div>
+
+
+  </form>
+</div>
+<div>
+  <h1 class="title">{{displayTitle}}</h1>
+</div>
+
+<div class="chart-container">
+  <mat-card>
+    <mat-card-content>      
+      <div class="canvas-container">
+          <canvas id="taskChart" width="400" height="400"></canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  <mat-card>
+    <mat-card-content>        
+      <div class="canvas-container">
+          <canvas id="barChartDone" width="400" height="400"></canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card>
+    <mat-card-content>      
+      <div class="canvas-container">
+          <canvas id="barChartPending" width="400" height="400"></canvas>
+      </div>
+    </mat-card-content>
+  </mat-card>
+     
+  <mat-card>
+    <mat-card-content>      
+      <div class="canvas-container">
+          <canvas id="pieChart" width="400" height="400"></canvas>
+        </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+  
+

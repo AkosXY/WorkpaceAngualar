@@ -1,0 +1,33 @@
+mat-card {
+    min-width: fit-content;
+    max-width: 500px;
+    padding: 20px;
+    margin: 5% auto;
+    border-radius: 8px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    padding-top: 25px;
+
+} 
+
+.title {
+    font-size: 35px;
+    font-weight: 350;
+    padding-bottom: 25px;
+}
+
+mat-card-content button{
+    margin: auto;
+    width: 200px;
+}
+
+.custom-scrollbar {
+    scrollbar-width: none !important; /* Hide the scrollbar in Firefox */
+    -ms-overflow-style: none !important; /* Hide the scrollbar in Edge */
+    ::-webkit-scrollbar {
+        display: none !important; /* Hide the scrollbar in WebKit-based browsers */
+    }
+}

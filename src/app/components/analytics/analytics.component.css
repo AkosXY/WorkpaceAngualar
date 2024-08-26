@@ -1,0 +1,26 @@
+.canvas-container {
+    display: block;
+    width: 300px;
+    height: 300px;
+}
+
+.chart-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.from-container {
+    display: flex;
+    align-items: center;
+}
+
+.from-container mat-form-field{
+    padding-right: 25px;
+}
+
+.title {
+    padding-top: 30px;
+    padding-bottom: 30px;
+
+}

@@ -1,0 +1,96 @@
+<div class="form-container">
+    <mat-card class="custom-scrollbar mat-mdc-elevation-specific mat-elevation-z10">
+        <mat-card-title class="title">Welcome to Work-Pace!</mat-card-title>
+        <mat-tab-group>
+            <mat-tab label="login">
+                <mat-card-content>
+                    <form class="form" [formGroup]="loginForm">
+                        <mat-form-field>
+                            <mat-label>username</mat-label>
+                            <input matInput placeholder="enter your username" formControlName="usernameForm" type="text">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-error *ngIf="usernameForm?.errors?.['required']">
+                                email required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>password</mat-label>
+                            <input matInput placeholder="enter password" formControlName="passwordForm" [type]="hidePassword ? 'password' : 'text'">
+                            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="passwordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="passwordForm?.errors?.['minlength']">
+                                password must be at least 5 characters long
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" type="submit" (click)="login()">login</button>
+                    </form>
+                </mat-card-content>
+            </mat-tab>
+            <mat-tab label="sign up">
+                <mat-card-content>
+                    <form class="form" [formGroup]="signupForm" >
+                        <mat-form-field>
+                            <mat-label>name</mat-label>
+                            <input matInput placeholder="enter your name" formControlName="newNameForm" type="text">
+                            <mat-icon matSuffix>person</mat-icon>
+                            <mat-error *ngIf="newNameForm?.errors?.['required']">
+                                name required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>username</mat-label>
+                            <input matInput placeholder="enter your username" formControlName="newUserNameForm" type="text">
+                            <mat-icon matSuffix>person_outline</mat-icon>
+                            <mat-error *ngIf="newUserNameForm?.errors?.['required']">
+                                username required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>email</mat-label>
+                            <input matInput placeholder="enter your email" formControlName="newEmailForm" type="text">
+                            <mat-icon matSuffix>email</mat-icon>
+                            <mat-error *ngIf="newEmailForm?.errors?.['email']">
+                                enter valid email address
+                            </mat-error>
+                            <mat-error *ngIf="newEmailForm?.errors?.['required']">
+                                email required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>phone</mat-label>
+                            <input matInput placeholder="enter your phone number" formControlName="newPhoneForm" type="text">
+                            <mat-icon matSuffix>phone</mat-icon>
+                            <mat-error *ngIf="newPhoneForm?.errors?.['required']">
+                                phone required
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>password</mat-label>
+                            <input matInput placeholder="enter password" formControlName="newPasswordForm" [type]="hidePassword ? 'password' : 'text'">
+                            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-error *ngIf="newPasswordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="newPasswordForm?.errors?.['minlength']">
+                                email must be at least 5 characters long
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>comfirm password</mat-label>
+                            <input matInput placeholder="comfirm your password" formControlName="confirmPasswordForm" [type]="hidePassword ? 'password' : 'text'">
+                            <mat-error *ngIf="confirmPasswordForm?.errors?.['required']">
+                                password required
+                            </mat-error>
+                            <mat-error *ngIf="confirmPasswordForm?.errors?.['passwordDontMatch']">
+                                passwords do not match
+                            </mat-error>
+                        </mat-form-field>
+                        <button mat-raised-button color="primary" type="submit" (click)="signup()">sign up</button>    
+                    </form>
+                </mat-card-content>
+            </mat-tab>
+        </mat-tab-group>
+    </mat-card>
+</div>

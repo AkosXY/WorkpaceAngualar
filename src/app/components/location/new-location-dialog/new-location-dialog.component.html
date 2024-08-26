@@ -1,0 +1,76 @@
+<div class="container">
+
+    <div class="button-close" >
+        <h1>Add details:</h1>
+        <button mat-mini-fab matTooltip="Primary" color="primary" matDialogClose>
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+    <form class="form" [formGroup]="submitForm">
+        <div class="form-subsection">
+            <div>
+                <app-autocomplete-place (placeChanged)="onPlaceChanged($event)"></app-autocomplete-place>
+                <br>
+            </div>
+            <mat-form-field>
+                <mat-label>display name</mat-label>
+                <input matInput placeholder="enter location name" formControlName="nameForm" type="text">
+                <mat-icon matSuffix>location_history</mat-icon>
+                <mat-error *ngIf="nameForm?.errors?.['required']">
+                    display name required
+                </mat-error>
+                <mat-error *ngIf="nameForm?.errors?.['minlength']">
+                    must be at least 5 characters long
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>address</mat-label>
+                <input matInput placeholder="enter address" formControlName="addressForm" type="text">
+                <mat-icon matSuffix>house</mat-icon>
+                <mat-error *ngIf="addressForm?.errors?.['required']">
+                    address required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>latitude</mat-label>
+                <input matInput placeholder="select latitude on map" formControlName="latitudeForm" type="text" readonly="true">
+                <mat-icon matSuffix>location_pin</mat-icon>
+                <mat-error *ngIf="latitudeForm?.errors?.['required']">
+                    latitude required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>longitude</mat-label>
+                <input matInput placeholder="select longitude on map" formControlName="longitudeForm" type="text" readonly="true">
+                <mat-icon matSuffix>location_pin</mat-icon>
+                <mat-error *ngIf="longitudeForm?.errors?.['required']">
+                    longitude required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>radius</mat-label>
+                <input matInput placeholder="select radius" formControlName="radiusForm" type="text">
+                <mat-icon matSuffix>radar</mat-icon>
+                <mat-error *ngIf="radiusForm?.errors?.['required']">
+                    radius required
+                </mat-error>
+            </mat-form-field>
+          
+        </div>
+        <div class="form-subsection">
+
+            <google-map id="map" #map [options]="options" (mapClick)="addMarker($event)" >
+                <map-marker *ngIf="selected"
+                    [position]="{ lat: selection.lat, lng: selection.lng }"
+                    [options]="markerOptions"
+                    [clickable]="true"
+                    (mapDragend)="onDragend($event)">
+                </map-marker>   
+            </google-map>
+        </div>
+    </form>
+    <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" (click)="submit()">Save</button>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<h1>My locations:</h1>
+<div>
+    <div class="header-container">
+        <div>
+            <mat-form-field>
+                <mat-label>Search</mat-label>
+                <mat-icon matPrefix>search</mat-icon>
+                <input matInput (keyup)="applyFilter($event)" placeholder="filter column" #input> 
+            </mat-form-field>
+        </div>
+        <button mat-fab extended color="none" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+            Add new location
+        </button>
+    </div>
+
+    <div class="table-container mat-elevation-z1">
+        <mat-table  [dataSource]="dataSource" matSort>
+            <!-- Name Column -->
+            <ng-container matColumnDef="display_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.display_name}} </mat-cell>
+            </ng-container>
+            <!-- username Column -->
+            <ng-container matColumnDef="address">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+                <mat-cell *matCellDef="let element" > {{element.address}} </mat-cell>
+            </ng-container>
+            <!-- action Column -->
+            <ng-container matColumnDef="action">
+                <mat-header-cell *matHeaderCellDef>  </mat-header-cell>
+                <mat-cell *matCellDef="let element" class="action-container">
+                    <button mat-icon-button class="button-spacing"
+                    (click)="deleteLocation(element)"><mat-icon>delete</mat-icon>
+                  </button>
+                </mat-cell>
+            </ng-container>
+            <ng-container >
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+            </ng-container>
+        </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" class="footer">
+        </mat-paginator>
+    </div>
+</div>
