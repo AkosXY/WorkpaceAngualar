@@ -1,6 +1,43 @@
 # WorkpaceAngular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.4.
+
+## Screenshots
+
+### Authentication
+<a href="./src/assets/screenshots/login.png" target="_blank">
+  <img src="./src/assets/screenshots/login.png" width="450">
+</a>
+
+### Task management
+<a href="./src/assets/screenshots/tasks.png" target="_blank">
+  <img src="./src/assets/screenshots/tasks.png" width="450">
+</a>
+<a href="./src/assets/screenshots/task_assign.png" target="_blank">
+  <img src="./src/assets/screenshots/task_assign.png" width="450">
+</a>
+<a href="./src/assets/screenshots/review.png" target="_blank">
+  <img src="./src/assets/screenshots/review.png" width="450">
+</a>
+<a href="./src/assets/screenshots/edit.png" target="_blank">
+  <img src="./src/assets/screenshots/edit.png" width="450">
+</a>
+<a href="./src/assets/screenshots/map.png" target="_blank">
+  <img src="./src/assets/screenshots/map.png" width="450">
+</a>
+<a href="./src/assets/screenshots/import.png" target="_blank">
+  <img src="./src/assets/screenshots/import.png" width="450">
+</a>
+
+### Statistics
+<a href="./src/assets/screenshots/stats.png" target="_blank">
+  <img src="./src/assets/screenshots/stats.png" width="450">
+</a>
+
+### Employee administration
+<a href="./src/assets/screenshots/workers.png" target="_blank">
+  <img src="./src/assets/screenshots/workers.png" width="450">
+</a>
+
 
 ## Development server
 
